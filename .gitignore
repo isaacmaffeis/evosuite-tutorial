@@ -26,3 +26,4 @@ replay_pid*
 # target directories
 /01_Tutorial_Stack/target/
 /02_Tutorial_Maven/target/
+/03_Tutorial_Experiments/target/
