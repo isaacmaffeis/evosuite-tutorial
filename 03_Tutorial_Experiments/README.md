@@ -281,6 +281,9 @@ some infeasible test goals, i.e., test goals for which there exist no tests, and
 EvoSuite will try to generate tests until it has used up the entire time budget.
 
 ## Analyzing results
+Google Colab Notebook:
+https://colab.research.google.com/drive/1zqrI0P_82_8S3Q4-pYzHDhqqjl93Ta-r?usp=sharing
+
 Now we have some data – from at least one run, and if you were patient enough, maybe from 5 or more
 additional runs. What are we going to do with that data? The best thing to do now is to use 
 statistical analysis package to process and analyze the data. A popular statistical analysis 
@@ -301,3 +304,113 @@ If this is all installed, then we can easily read our statistics.csv file using 
 For example, the following script creates three boxplots that compare branch coverage and the 
 default criteria in terms of the number of tests (Size), number of statements (Length) and 
 mutation score (MutationScore):
+```python
+#!/usr/bin/python
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_csv('statistics.csv') # Make sure the path is correct
+bp = df.boxplot(column='Size', by='configuration_id')
+bp = df.boxplot(column='Length', by='configuration_id')
+bp = df.boxplot(column='MutationScore', by='configuration_id')
+plt.show()
+```
+The final command (plt.show()) will use matplotlib to open up three windows for the three plots.
+In all plots we can clearly see that branch coverage, on average, produces fewer tests, 
+fewer statements, and these tests achieve lower mutation scores.
+
+Although the difference is visible in the boxplots, in a scientific context it is always good to 
+demonstrate such differences using statistical analysis. In particular, we typically want to 
+quantify the size of the effect, and we want to quantify our confidence in the difference. 
+For the first of these values, there are different effect size measurements available. 
+Let’s use [Cohen’s-d](https://en.wikiversity.org/wiki/Cohen%27s_d), which is a value in the 
+range of [-1, 1]. To quantify our confidence in the result, we will use the well-known 
+[p-value](https://en.wikipedia.org/wiki/P-value), which is the probability that the observed 
+result is not an effect of what we are actually testing for. To calculate the p-value we need to 
+choose an appropriate statistical test. Let’s use a Wilcoxon rank test, but the choice of 
+statistical test is really beyond this tutorial. Statistical tests are fortunately all available
+as part of SciPy, so let’s make sure this is installed:
+```shell
+easy_install scipy
+```
+All we have to do to perform a statistical test is create to arrays of values, and pass them in as
+parameters of to the scipy.stats.wilcoxon function, which will then give us the p-value. Typically,
+a p-value of less than 0.05 is seen as evidence of a statistically significant result, so that’s
+what we’re hoping for.
+
+To produce the input arrays to the statistical test, we can use the pandas library again; 
+we just need to select subsets of the data. For example, to select all data belonging to the 
+Default configuration, we would filter our dataset using `df[df['configuration_id]=='Default']`. 
+Within the resulting data, we can select columns, e.g. Size. To calculate Cohen’s-d, we simply take 
+a snippet from Stackoverflow:
+```python
+#!/usr/bin/python
+
+import pandas as pd
+from scipy.stats import wilcoxon
+from numpy import mean, std # version >= 1.7.1 && <= 1.9.1
+from math import sqrt
+
+# From http://stackoverflow.com/questions/21532471/how-to-calculate-cohens-d-in-python
+def cohen_d(x,y):
+  return (mean(x) - mean(y)) / sqrt((std(x, ddof=1) ** 2 + std(y, ddof=1) ** 2) / 2.0)
+
+
+df = pd.read_csv('statistics.csv')
+
+cat1 = df[df['configuration_id']=='Default']
+cat2 = df[df['configuration_id']=='Branch']
+
+for column in ['Size', 'Length', 'MutationScore']:
+  print "%s: %.2f (%f)" % (column, cohen_d(cat1[column], cat2[column]), wilcoxon(cat1[column], cat2[column]).pvalue)
+```
+If we run the script, we will see some output similar to the following:
+```
+Size: 0.76 (0.000402)
+Length: 0.38 (0.000430)
+MutationScore: 0.67 (0.006838)
+```
+In this case, all three p-values are smaller than 0.05 so we now know that with 95% confidence the
+test suites generated for branch coverage have different sizes, numbers of statements,
+and mutation scores than those generated for the default criteria. The effect size tells us
+that for all three of these properties there is a medium increase when using the default
+configuration over the branch configuration. So all in all, it sounds like a good idea to use
+the default configuration! (After all, that is why it is the default configuration…).
+
+## Other useful variables
+To get a full overview of the available output variables, the best place is currently the source 
+code, in particular the file 
+[RuntimeVariable.java](https://github.com/EvoSuite/evosuite/blob/master/client/src/main/java/org/evosuite/statistics/RuntimeVariable.java).
+
+For example, if you want to know how certain values evolved over time, there are timeline variables
+that capture this data for you. Assume we would like to see how branch coverage evolves over the 
+first 30 seconds of the search, and we want to sample once every second. To do this, we would add 
+an output variable “CoverageTimeline”, and specify the sampling interval using
+`-Dtimeline_interval=1000`:
+```shell
+java -jar evosuite-1.0.6.jar -class tutorial.ATM -criterion branch  "-Doutput_variables=TARGET_CLASS,BranchCoverage,CoverageTimeline" -Dtimeline_interval=1000 -Dsearch_budget=30
+```
+As we specified a time budget of 30 seconds in total `-Dsearch_budget=30`, the statistics.csv file 
+will now have 30 columns labeled `CoverageTimeline_T1` up to `CoverageTimeline_T30`, with the individual
+values for each second of the search.
+
+As another interesting example, the `BranchCoverageBitString` variable will produce a string of ‘0’ 
+and ‘1’ digits, where each digit represents one branch in the program, and 1 indicates that the
+branch was covered. This bitstring allows us to compare whether specific branches were covered 
+by specific configurations.
+
+## Running large scale experiments
+Running just our small experiment already took quite some time. If you want to run some serious 
+experiments, for example because you want to write a scientific paper for a software engineering
+research conference, then the experiment would require to be run on many more classes. For example,
+if we run experiments on a new feature of EvoSuite, we typically use all classes of the 
+[SF110](http://www.evosuite.org/experimental-data/sf110/) corpus of classes 
+(which has more than 20,000 classes) or at least a large sample thereof. How does that scale up?
+
+We are in a lucky position where we have access to large clusters of computers, 
+managed using the Sun Grid Engine software. This allows us to heavily parallelize the experiment, 
+which makes larger experiments feasible. Some notes if you want to take a similar approach:
+
+- When running large experiments, the progress bar that EvoSuite shows on the command line will waste space in your log files. Deactivate it by adding -Dshow_progress=false.
+- When running multiple EvoSuite jobs in parallel, make sure they do not attempt to write to the same evosuite-report/statistics.csv, as simultaneous access would break this file. Instead, use the property -Dreport_dir=<directory> to set different directories for different jobs. When the experiments are done, you will need to aggregate the individual result files into one large data file again.
