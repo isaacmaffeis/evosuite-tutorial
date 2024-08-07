@@ -8,6 +8,7 @@ In this repository, I have archived the tutorial projects that I used to learn E
 - [Tutorial Part 2: Advanced Usage](#tutorial-part-2-advanced-usage)
 - [Tutorial Part 3: Integrating with Build Tools](#tutorial-part-3-integrating-with-build-tools)
 - [Tutorial Part 4: Customizing EvoSuite](#tutorial-part-4-customizing-evosuite)
+- [Examples](#examples)
 
 ## Introduction
 
@@ -36,6 +37,10 @@ Learn how to integrate EvoSuite with build tools like Maven and Gradle to stream
 This part explains how to customize EvoSuite's behavior to suit your specific testing needs and improve the efficiency of the generated test cases.
 
 - [Tutorial Part 4: Customizing EvoSuite](https://www.evosuite.org/documentation/tutorial-part-4/)
+
+## Examples
+
+The examples directory contains several project examples designed to demonstrate the capabilities and evolution of EvoSuite over different versions. Specifically, I have included the same example project tested using three different versions of EvoSuite: 1.0.6, 1.1.0, and 1.2.0.
 
 ---
 
