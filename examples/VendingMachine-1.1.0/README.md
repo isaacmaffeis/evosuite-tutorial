@@ -22,7 +22,7 @@ Add the `evosuite-standalone-runtime-1.1.0.jar` as library of the project
 ### Basic Setup
 
 1. Run `mvn compile`
-2. Run `mvn dependency:copy-dependencies -DincludeScope=runtime`
+2. Run `mvn dependency:copy-dependencies -DincludeScope=runtime[evosuite-1.0.6.jar](..%2FVendingMachine-1.0.6%2Fevosuite-1.0.6.jar)`
 3. Run `java -jar evosuite-1.1.0.jar -setup target/classes target/dependency/commons-collections-3.2.2.jar`
 4. Run `java -jar evosuite-1.1.0.jar -class org.example.vendingMachine.VendingMachineASM`
 5. Run `xcopy evosuite-tests\* src\test\java /E /I /Y`
