@@ -1,0 +1,2 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH;CBRANCH,1.0,65,65
