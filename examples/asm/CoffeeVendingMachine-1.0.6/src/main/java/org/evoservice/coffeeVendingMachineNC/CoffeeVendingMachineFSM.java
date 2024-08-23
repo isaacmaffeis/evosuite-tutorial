@@ -32,10 +32,17 @@ public class CoffeeVendingMachineFSM {
     }
 
     public boolean isFinalState() {
-        if(esecuzione.coins.get().value==10)
+        //if(esecuzione.coins.get().value==10)
+        if(isEmpty())
             return true;
         else
             return false;
+    }
+
+    public boolean isEmpty(){
+        return esecuzione.available.oldValues.get(esecuzione.Product_elemsList.get(0)).value +
+            esecuzione.available.oldValues.get(esecuzione.Product_elemsList.get(1)).value +
+            esecuzione.available.oldValues.get(esecuzione.Product_elemsList.get(2)).value == 0;
     }
 
     public int getCoins() {
