@@ -23,6 +23,9 @@
 hs_err_pid*
 replay_pid*
 
+#Intellij
+/.idea/
+
 # target directories
 /01_Tutorial_Stack/target/
 /02_Tutorial_Maven/target/
