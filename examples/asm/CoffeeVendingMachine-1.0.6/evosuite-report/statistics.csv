@@ -1,0 +1,17 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,LINE;BRANCH;EXCEPTION;WEAKMUTATION;OUTPUT;METHOD;METHODNOEXCEPTION;CBRANCH,0.7294201292229439,140,90
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,LINE;BRANCH;EXCEPTION;WEAKMUTATION;OUTPUT;METHOD;METHODNOEXCEPTION;CBRANCH,0.7294201292229439,140,90
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,CBRANCH,0.5555555555555556,9,5
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,CBRANCH,0.5555555555555556,9,5
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,CBRANCH,0.5555555555555556,9,5
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineController,BRANCH,0.875,8,7
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,BRANCH,0.7,10,7
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,BRANCH,0.9090909090909091,22,20
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,BRANCH,0.8636363636363636,22,19
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE,0.9705882352941176,34,33
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH;EXCEPTION;WEAKMUTATION;OUTPUT;METHOD;METHODNOEXCEPTION;CBRANCH,0.9601492869875222,209,200
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH;EXCEPTION;WEAKMUTATION;OUTPUT;METHOD;METHODNOEXCEPTION;CBRANCH,0.9988636363636364,187,187
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,BRANCH,1.0,16,16
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH,1.0,50,50
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH,1.0,50,50
+org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH,0.9583333333333333,63,61
