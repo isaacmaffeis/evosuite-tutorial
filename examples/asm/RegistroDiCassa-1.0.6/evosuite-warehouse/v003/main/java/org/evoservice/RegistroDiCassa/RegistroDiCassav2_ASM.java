@@ -34,9 +34,9 @@ class RegistroDiCassav2_ASM {
 		getServizio();
 		getStatoCassa();
 		getTotale();
-//		getPizza_elemsList_0();
-//		getPizza_elemsList_1();
-//		getPizza_elemsList_2();
+		getPizza_elemsList_0();
+		getPizza_elemsList_1();
+		getPizza_elemsList_2();
 		if(isFinalState()){
 			System.out.println("\n<Stato finale>");
 		}
@@ -61,17 +61,17 @@ class RegistroDiCassav2_ASM {
 		return esecuzione.totale.get();
 	}
 
-//	public String getPizza_elemsList_0(){
-//		return esecuzione.Pizza_elemsList.get(0);
-//	}
-//
-//	public String getPizza_elemsList_1(){
-//		return esecuzione.Pizza_elemsList.get(1);
-//	}
-//
-//	public String getPizza_elemsList_2(){
-//		return esecuzione.Pizza_elemsList.get(2);
-//	}
+	public String getPizza_elemsList_0(){
+		return esecuzione.Pizza_elemsList.get(0);
+	}
+
+	public String getPizza_elemsList_1(){
+		return esecuzione.Pizza_elemsList.get(1);
+	}
+
+	public String getPizza_elemsList_2(){
+		return esecuzione.Pizza_elemsList.get(2);
+	}
 
 	static void printControlled(RegistroDiCassav2 esecuzione) {
 		System.out.print("Pizza"+ " = {");
