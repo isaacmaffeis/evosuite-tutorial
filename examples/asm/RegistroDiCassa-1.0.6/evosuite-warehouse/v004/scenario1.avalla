@@ -1,0 +1,35 @@
+scenario scenario1
+
+load RegistroDiCassav2.asm
+
+check totale<50;
+check totale=0;
+set servizioSelezionato := NEWORDINE;
+set sceltaDiAggiuntaPizza := SI;
+set sceltaDelTipoPizza := STANDARD;
+set insertQuantita := 7;
+set insertPrezzo := 7;
+step
+check totale<50;
+check servizioSelezionato = NEWORDINE;
+check totale = 0;
+
+set servizioSelezionato := NEWORDINE;
+set sceltaDiAggiuntaPizza := SI;
+set sceltaDelTipoPizza := OTHER;
+set insertQuantita := 7;
+set insertPrezzo := 7;
+step
+check totale<50;
+check servizioSelezionato = NEWORDINE;
+check totale = 0;
+
+set servizioSelezionato := NEWORDINE;
+set sceltaDiAggiuntaPizza := SI;
+set sceltaDelTipoPizza := OTHER;
+set insertQuantita := 7;
+set insertPrezzo := 7;
+step
+check totale>50;
+check servizioSelezionato = NEWORDINE;
+check totale = 56;
