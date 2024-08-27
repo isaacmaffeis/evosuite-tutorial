@@ -1,0 +1,54 @@
+scenario scenario_0
+
+load RegistroDiCassav2.asm
+
+check statoCassa = ATTENDI_ORDINAZIONI;
+check totale=0;
+
+set servizioSelezionato := NEWORDINE;
+set sceltaDelTipoPizza := OTHER;
+set sceltaDiAggiuntaPizza := SI;
+set insertQuantita := 9;
+set insertPrezzo := 9;
+step
+check sceltaDiAggiuntaPizza = SI;
+check statoCassa = SCEGLI_TIPO_DI_PIZZA;
+check servizioSelezionato = NEWORDINE;
+check totale = 0;
+check sceltaDelTipoPizza = OTHER;
+
+set insertQuantita := 9;
+set insertPrezzo := 9;
+step
+check sceltaDiAggiuntaPizza = SI;
+check statoCassa = ALTRAPIZZA_SELEZIONATA;
+check servizioSelezionato = NEWORDINE;
+check totale=0;
+check sceltaDelTipoPizza = OTHER;
+
+set insertQuantita := 9;
+set insertPrezzo := 9;
+step
+check sceltaDiAggiuntaPizza = SI;
+check statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA;
+check servizioSelezionato = NEWORDINE;
+check totale=81;
+check sceltaDelTipoPizza = OTHER;
+
+set insertQuantita := 9;
+set insertPrezzo := 9;
+step
+check sceltaDiAggiuntaPizza = SI;
+check statoCassa = SCEGLI_TIPO_DI_PIZZA;
+check servizioSelezionato = NEWORDINE;
+check totale=81;
+check sceltaDelTipoPizza = OTHER;
+
+set insertQuantita := 9;
+set insertPrezzo := 9;
+step
+check sceltaDiAggiuntaPizza = SI;
+check statoCassa = ALTRAPIZZA_SELEZIONATA;
+check servizioSelezionato = NEWORDINE;
+check totale=81;
+check sceltaDelTipoPizza = OTHER;

@@ -16,3 +16,5 @@ org.evoservice.ASM.RegistroDiCassav2_ASM,LINE;BRANCH,0.9432900432900433,76,73
 org.evoservice.ASM.RegistroDiCassav2_ASM,LINE;BRANCH;CBRANCH,1.0,80,80
 org.evoservice.ASM.RegistroDiCassav2_ASM,LINE;BRANCH;CBRANCH,1.0,80,80
 org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM,LINE;BRANCH;CBRANCH,1.0,80,80
+org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM,LINE;BRANCH,1.0,66,66
+org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM,LINE;BRANCH,1.0,68,68
