@@ -1,24 +1,17 @@
-# V005
+# V006
 
-I have correct the inconsistency between java test scenario and AVALLA scenario, 
-now the AVALLA scenario pass correctly:
-```
-  check succeeded: totale<50 
-  check succeeded: totale=0 
-  check succeeded: totale<50 
-  check succeeded: servizioSelezionato = NEWORDINE 
-  check succeeded: totale = 0 
-  check succeeded: totale<50 
-  check succeeded: servizioSelezionato = NEWORDINE 
-  check succeeded: totale = 0 
-  check succeeded: totale>=50 
-  check succeeded: servizioSelezionato = NEWORDINE 
-  check succeeded: totale = 66 
-```
+I have added the CBRANCH criterion to evosuite, now it can generate multiple scenario
+and cover all the states.
 
 ## Problems
 
-- The scenario doesn't reach all the state, but the coverage is 100%
+- evosuite can use directly the RegistroDiCassav2 methods, like in this example:
+  ```java
+  RegistroDiCassav2 registroDiCassav2_0 = new RegistroDiCassav2();
+  registroDiCassav2_0.r_aggiungiAlTotale();
+  ```
+  this is not correct and can lead to inconsistent scenario that can't be parsed to AVALLA
+- evosuite has generated 8 test cases but only 2 scenarios.
 
 ## How to
 ```shell
@@ -39,7 +32,7 @@ java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiC
 * Going to generate test cases for class: org.evoservice.ASM.RegistroDiCassav2_ASM
 * Starting client
 * Properties loaded from C:\Users\isaac\Documents\GitHub\evosuite-tutorial\examples\asm\RegistroDiCassa-1.0.6\evosuite-files\evosuite.properties
-* Connecting to master process on port 2717
+* Connecting to master process on port 10435
 * Analyzing classpath:
   - target/classes
   - target/dependency/commons-collections-3.2.2.jar
@@ -48,81 +41,112 @@ java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiC
 * Test criteria:
   - Line Coverage
   - Branch Coverage
+  - Context Branch Coverage
 * Setting up search algorithm for whole suite generation
 * Total number of test goals:
-  - Line 42
-    [Progress:>                             0%] [Cov:>                                  0%]  - Branch 13
-* Using seed 1724761197607
+  - Line 48
+    [Progress:>                             0%] [Cov:>                                  0%]  - Branch 16
+  - CBranchFitnessFactory 16
+* Using seed 1724769237529
 * Starting evolution
-  [Progress:======>                       21%] [Cov:===================================100%]
-* Search finished after 14s and 84 generations, 27816 statements, best individual has fitness: 0.0
+  [Progress:=========>                    30%] [Cov:===================================100%]
+* Search finished after 19s and 83 generations, 31787 statements, best individual has fitness: 0.0
 * Minimizing test suite
 * Going to analyze the coverage criteria
 * Coverage analysis for criterion LINE
 * Coverage of criterion LINE: 100%
-* Total number of goals: 42
-* Number of covered goals: 42
+* Total number of goals: 48
+* Number of covered goals: 48
 * Coverage analysis for criterion BRANCH
 * Coverage of criterion BRANCH: 100%
-* Total number of goals: 13
-* Number of covered goals: 13
-* Generated 1 tests with total length 8
+* Total number of goals: 16
+* Number of covered goals: 16
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 100%
+* Total number of goals: 16
+* Number of covered goals: 16
+* Generated 8 tests with total length 35
 * Resulting test suite's coverage: 100% (average coverage for all fitness functions)
 * Generating assertions
 * Compiling and checking tests
 * Writing JUnit test case 'RegistroDiCassav2_ASM_ESTest' to evosuite-tests
 * Done!
 
-* Computation finished
-
 ## Scenario
+### test0
 ```
 <State 1 (controlled)>
 Pizza = {margherita, marinara, capricciosa}
 statoCassa = ATTENDI_ORDINAZIONI
 totale = 0
-Set servizio = NEWORDINE
+Set servizio = EXIT
 Set aggiungiPizza = SI
 Set selezioneTipoDiPizza = OTHER
-Set quantita' = 6
-Set prezzo = 6
+Set quantita' = 10
+Set prezzo = 10
 </State 1 (controlled)>
 
 <Stato attuale>
 Pizza = {margherita, marinara, capricciosa}
-statoCassa = SCEGLI_TIPO_DI_PIZZA
+statoCassa = CHIUSO
+totale = 0
+```
+### test1
+```
+- no output (the asm doesn't perform any step)
+```
+### test2
+```
+- no output (the asm doesn't perform any step)
+```
+### test3
+```
+- no output (the asm doesn't perform any step)
+```
+### test4
+```
+- no output (the asm doesn't perform any step)
+```
+### test5
+```
+- no output (the asm doesn't perform any step)
+```
+### test6
+```
+<State 1 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+totale = 0
+Set servizio = EXIT
+Set aggiungiPizza = SI
+Set selezioneTipoDiPizza = OTHER
+Set quantita' = 10
+Set prezzo = 10
+</State 1 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = CHIUSO
 totale = 0
 <State 2 (controlled)>
 Pizza = {margherita, marinara, capricciosa}
-statoCassa = SCEGLI_TIPO_DI_PIZZA
-totale = 0
-Set servizio = NEWORDINE
+statoCassa = CHIUSO
+totale = 100
+Set servizio = EXIT
 Set aggiungiPizza = SI
 Set selezioneTipoDiPizza = OTHER
-Set quantita' = 6
-Set prezzo = 6
+Set quantita' = 10
+Set prezzo = 10
 </State 2 (controlled)>
 
 <Stato attuale>
 Pizza = {margherita, marinara, capricciosa}
-statoCassa = ALTRAPIZZA_SELEZIONATA
-totale = 0
-<State 3 (controlled)>
-Pizza = {margherita, marinara, capricciosa}
-statoCassa = ALTRAPIZZA_SELEZIONATA
-totale = 0
-Set servizio = NEWORDINE
-Set aggiungiPizza = SI
-Set selezioneTipoDiPizza = OTHER
-Set quantita' = 6
-Set prezzo = 11
-</State 3 (controlled)>
-
-<Stato attuale>
-Pizza = {margherita, marinara, capricciosa}
-statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA
-totale = 66
+statoCassa = CHIUSO
+totale = 100
 
 <Stato finale>
-
+```
+### test7
+```
+- no output (the asm doesn't perform any step)
 ```

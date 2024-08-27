@@ -53,7 +53,7 @@ java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiC
 
 ### log
 * EvoSuite 1.0.6
-* Going to generate test cases for class: org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM
+* Going to generate test cases for class: org.evoservice.ASM.RegistroDiCassav2_ASM
 * Starting client
 * Properties loaded from C:\Users\isaac\Documents\GitHub\evosuite-tutorial\examples\asm\RegistroDiCassa-1.0.6\evosuite-files\evosuite.properties
 * Connecting to master process on port 8427
@@ -61,7 +61,7 @@ java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiC
   - target/classes
   - target/dependency/commons-collections-3.2.2.jar
 * Finished analyzing classpath
-* Generating tests for class org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM
+* Generating tests for class org.evoservice.ASM.RegistroDiCassav2_ASM
 * Test criteria:
   - Line Coverage
   - Branch Coverage

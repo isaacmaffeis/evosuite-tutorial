@@ -294,7 +294,7 @@ abstract class RegistroDiCassav2Sig {
 
 
 
-public class RegistroDiCassav2 extends RegistroDiCassav2Sig {
+class RegistroDiCassav2 extends RegistroDiCassav2Sig {
 	
 	// Inizializzazione di funzioni e domini
 	
