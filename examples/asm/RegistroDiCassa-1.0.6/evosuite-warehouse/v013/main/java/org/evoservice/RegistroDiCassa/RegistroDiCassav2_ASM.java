@@ -2,6 +2,7 @@ package org.evoservice.RegistroDiCassa;// RegistroDiCassa_Exe.java automatically
 //Classe per l'esecuzione dei file java generati dalla traduzione di un programma ASM
 
 import org.evoservice.RegistroDiCassa.RegistroDiCassav2Sig.AggiungiPizza;
+import org.evoservice.RegistroDiCassa.RegistroDiCassav2Sig.Pizza;
 import org.evoservice.RegistroDiCassa.RegistroDiCassav2Sig.PrezzoDomain;
 import org.evoservice.RegistroDiCassa.RegistroDiCassav2Sig.QuantitaDomain;
 import org.evoservice.RegistroDiCassa.RegistroDiCassav2Sig.SelezioneTipoDiPizza;
@@ -22,24 +23,27 @@ class RegistroDiCassav2_ASM {
 			Servizio servizio,
 			AggiungiPizza aggiungiPizza,
 			SelezioneTipoDiPizza selezioneTipoDiPizza,
+			int pizza,
 			int quantita,
 			int prezzo) {
 		System.out.println("<State " + stato + " (controlled)>");
 		printControlled();
-		askMonitored(servizio, aggiungiPizza, selezioneTipoDiPizza, quantita, prezzo);
+		askMonitored(servizio, aggiungiPizza, selezioneTipoDiPizza, pizza, quantita, prezzo);
 		this.esecuzione.updateASM();
 		System.out.println("</State " + stato + " (controlled)>");
 		System.out.println("\n<Stato attuale>");
 		printControlled();
+		//monitored
 		getStato();
 		getAggiungiPizza();
 		getSelezioneTipoDiPizza();
 		getServizio();
+		// controlled
+		getPizzaCorrente();
 		getStatoCassa();
+		getOutMess();
 		getTotale();
-//		getPizza_elemsList_0();
-//		getPizza_elemsList_1();
-//		getPizza_elemsList_2();
+		//final state condition
 		if(isFinalState()){
 			System.out.println("\n<Stato finale>");
 		}
@@ -47,52 +51,51 @@ class RegistroDiCassav2_ASM {
 			stato++;
 	}
 
+	//final state condition
+
 	public boolean isFinalState() {
 		return this.getTotale() >= 50 &&
 				this.stato>=5 &&
 				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
 	}
 
-	// Enum Domain assertions
+	// Monitored functions
 
-	public Stati getStato(){
-		return esecuzione.statoCassa.oldValue;
+	private Stati getStato(){
+		return this.esecuzione.statoCassa.get();
 	}
 
-	public AggiungiPizza getAggiungiPizza(){
-		return esecuzione.sceltaDiAggiuntaPizza.value;
+	private AggiungiPizza getAggiungiPizza(){
+		return this.esecuzione.sceltaDiAggiuntaPizza.get();
 	}
 
-	public SelezioneTipoDiPizza getSelezioneTipoDiPizza(){
-		return esecuzione.sceltaDelTipoPizza.value;
+	private SelezioneTipoDiPizza getSelezioneTipoDiPizza(){
+		return this.esecuzione.sceltaDelTipoPizza.get();
 	}
 
-	public Servizio getServizio() {
-		return esecuzione.servizioSelezionato.value;
+	private Servizio getServizio() {
+		return this.esecuzione.servizioSelezionato.get();
 	}
 
-	// Function assertions
+	// Controlled functions
 
-	public String getStatoCassa(){
-		return esecuzione.statoCassa.oldValue.name();
+	public Pizza getPizzaCorrente(){
+		return this.esecuzione.pizzaCorrente.get();
+	}
+
+	public Stati getStatoCassa(){
+		return this.esecuzione.statoCassa.get();
+	}
+
+	public Object getOutMess(){
+		return this.esecuzione.outMess.get();
 	}
 
 	public int getTotale(){
-		return esecuzione.totale.get();
+		return this.esecuzione.totale.get();
 	}
 
-//	public String getPizza_elemsList_0(){
-//		return esecuzione.Pizza_elemsList.get(0);
-//	}
-//
-//	public String getPizza_elemsList_1(){
-//		return esecuzione.Pizza_elemsList.get(1);
-//	}
-//
-//	public String getPizza_elemsList_2(){
-//		return esecuzione.Pizza_elemsList.get(2);
-//	}
-
+	// Private Methods
 
 	private void printControlled() {
 		System.out.print("Pizza"+ " = {");
@@ -104,12 +107,16 @@ class RegistroDiCassav2_ASM {
 		System.out.println("}");
 		System.out.println("statoCassa = " + this.esecuzione.statoCassa.oldValue.name());
 		System.out.println("totale = " + this.esecuzione.totale.get());
+		System.out.println("outMess = " + this.esecuzione.outMess.get());
+		if(this.esecuzione.pizzaCorrente.get()!=null)
+			System.out.println("pizzaCorrente = " + this.esecuzione.pizzaCorrente.get().toString(this.esecuzione.pizzaCorrente.get()));
 	}
 
 	private void askMonitored(
 			Servizio servizio,
 			AggiungiPizza aggiungiPizza,
 			SelezioneTipoDiPizza selezioneTipoDiPizza,
+			int pizza,
 			int quantita,
 			int prezzo) {
 
@@ -121,6 +128,9 @@ class RegistroDiCassav2_ASM {
 
 		this.esecuzione.sceltaDelTipoPizza.set(selezioneTipoDiPizza);
 		System.out.println("Set selezioneTipoDiPizza = " + selezioneTipoDiPizza);
+
+		this.esecuzione.pizzaInserita.set(this.esecuzione.Pizza_Class.get(pizza));
+		System.out.println("Set pizzaInserita = " + this.esecuzione.Pizza_elemsList.get(pizza));
 
 		this.esecuzione.insertQuantita.set(QuantitaDomain.valueOf(this.esecuzione.QuantitaDomain_elems.get(quantita)));
 		System.out.println("Set quantita' = " + quantita);
