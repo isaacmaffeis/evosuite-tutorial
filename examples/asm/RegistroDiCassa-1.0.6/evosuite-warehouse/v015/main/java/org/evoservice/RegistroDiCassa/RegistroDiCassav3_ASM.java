@@ -33,16 +33,22 @@ class RegistroDiCassav3_ASM {
 		System.out.println("</State " + stato + " (controlled)>");
 		System.out.println("\n<Stato attuale>");
 		printControlled();
-		/* monitored */
-		coverMonitored();
-		/* controlled */
-		coverControlled();
-		/*final state condition */
+		//monitored
+		getStato();
+		getAggiungiPizza();
+		getSelezioneTipoDiPizza();
+		getServizio();
+		// controlled
+//		getPizzaCorrente();
+//		getStatoCassa();
+//		getOutMess();
+//		getTotale();
+		//final state condition
 		if(isFinalState()){
 			System.out.println("\n<Stato finale>");
 		}
 		else
-		  stato++;
+			stato++;
 	}
 
 	//final state condition
@@ -55,28 +61,20 @@ class RegistroDiCassav3_ASM {
 
 	// Monitored functions
 
-	private Servizio getServizioSelezionato(){
-		return this.esecuzione.servizioSelezionato.get();
+	private Stati getStato(){
+		return this.esecuzione.statoCassa.get();
 	}
 
-	private Pizza getPizzaInserita(){
-		return this.esecuzione.pizzaInserita.get();
-	}
-
-	private AggiungiPizza getSceltaDiAggiuntaPizza(){
+	private AggiungiPizza getAggiungiPizza(){
 		return this.esecuzione.sceltaDiAggiuntaPizza.get();
 	}
 
-	private SelezioneTipoDiPizza getSceltaDelTipoPizza(){
+	private SelezioneTipoDiPizza getSelezioneTipoDiPizza(){
 		return this.esecuzione.sceltaDelTipoPizza.get();
 	}
 
-	private QuantitaDomain getInsertQuantita(){
-		return this.esecuzione.insertQuantita.get();
-	}
-
-	private PrezzoDomain getInsertPrezzo(){
-		return this.esecuzione.insertPrezzo.get();
+	private Servizio getServizio() {
+		return this.esecuzione.servizioSelezionato.get();
 	}
 
 	// Controlled functions
@@ -97,108 +95,7 @@ class RegistroDiCassav3_ASM {
 		return this.esecuzione.totale.get();
 	}
 
-	// Cover functions
-
-	private void coverMonitored(){
-		coverServizioSelezionato();
-		coverPizzaInserita();
-		coverSceltaDiAggiuntaPizza();
-		coverSceltaDelTipoPizza();
-		coverInsertQuantita();
-		coverInsertPrezzo();
-	}
-
-	private void coverControlled(){
-		coverPizzaCorrente();
-		coverStatoCassa();
-		coverOutMess();
-		coverTotale();
-	}
-
-	// Monitored functions branches
-
-	private void coverServizioSelezionato(){
-		switch (this.getServizioSelezionato()){
-			case NEWORDINE:
-				System.out.println("Servizio NEWORDINE covered");
-				break;
-			case EXIT:
-				System.out.println("Servizio EXIT covered");
-				break;
-		}
-	}
-
-	private void coverPizzaInserita(){
-		// TODO: Abstract domain
-	}
-
-	private void coverSceltaDiAggiuntaPizza(){
-		switch (this.getSceltaDiAggiuntaPizza()){
-			case SI:
-				System.out.println("AggiungiPizza SI covered");
-				break;
-			case NO:
-				System.out.println("AggiungiPizza NO covered");
-		}
-	}
-
-	private void coverSceltaDelTipoPizza(){
-		switch (this.getSceltaDelTipoPizza()){
-			case OTHER:
-				System.out.println("SelezioneTipoDiPizza OTHER covered");
-				break;
-			case STANDARD:
-				System.out.println("SelezioneTipoDiPizza STANDARD covered");
-				break;
-		}
-	}
-
-	private void coverInsertQuantita(){
-		// TODO: Subset of Integer domain
-	}
-
-	private void coverInsertPrezzo(){
-		// TODO: Subset of Integer domain
-	}
-
-	// Controlled functions branches
-
-	private void coverPizzaCorrente() {
-		// TODO: Abstract domain
-	}
-
-	private void coverStatoCassa() {
-		switch (getStatoCassa()) {
-			case ATTENDI_ORDINAZIONI:
-				System.out.println("Stato ATTENDI_ORDINAZIONI covered");
-				break;
-			case SCEGLI_SE_AGGIUNGERE_PIZZA:
-				System.out.println("Stato SCEGLI_SE_AGGIUNGERE_PIZZA covered");
-				break;
-			case PIZZASTANDARD_SELEZIONATA:
-				System.out.println("Stato PIZZASTANDARD_SELEZIONATA covered");
-				break;
-			case SCEGLI_TIPO_DI_PIZZA:
-				System.out.println("Stato SCEGLI_TIPO_DI_PIZZA covered");
-				break;
-			case ALTRAPIZZA_SELEZIONATA:
-				System.out.println("Stato ALTRAPIZZA_SELEZIONATA covered");
-				break;
-			case CHIUSO:
-				System.out.println("Stato CHIUSO covered");
-				break;
-		}
-	}
-
-	private void coverOutMess() {
-		// TODO: String
-	}
-
-	private void coverTotale() {
-		// TODO: Integer
-	}
-
-	// ASM Methods
+	// Private Methods
 
 	private void printControlled() {
 		System.out.print("Pizza"+ " = {");

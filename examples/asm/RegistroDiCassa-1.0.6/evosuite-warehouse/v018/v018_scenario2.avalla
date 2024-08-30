@@ -1,0 +1,17 @@
+scenario v018_scenario2
+
+load RegistroDiCassav3.asm
+
+check statoCassa = ATTENDI_ORDINAZIONI;
+check totale = 0;
+
+set servizioSelezionato := EXIT;
+set sceltaDiAggiuntaPizza := SI;
+set sceltaDelTipoPizza := STANDARD;
+set pizzaInserita := margherita;
+set insertQuantita := 0;
+set insertPrezzo := 7;
+step
+check statoCassa = CHIUSO;
+check totale = 0;
+check outMess = "Registro di cassa chiuso!";

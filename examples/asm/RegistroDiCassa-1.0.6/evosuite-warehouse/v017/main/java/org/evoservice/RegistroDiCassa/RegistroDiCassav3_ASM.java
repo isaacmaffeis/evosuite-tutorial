@@ -34,24 +34,32 @@ class RegistroDiCassav3_ASM {
 		System.out.println("\n<Stato attuale>");
 		printControlled();
 		/* monitored */
-		coverMonitored();
+		getServizioSelezionato();
+		getPizzaInserita();
+		getSceltaDiAggiuntaPizza();
+		getSceltaDelTipoPizza();
+		getInsertQuantita();
+		getInsertPrezzo();
 		/* controlled */
-		coverControlled();
-		/*final state condition */
-		if(isFinalState()){
-			System.out.println("\n<Stato finale>");
-		}
-		else
-		  stato++;
+		getPizzaCorrente();
+		getStatoCassa();
+		getOutMess();
+		getTotale();
+		/* final state condition */
+//		if(isFinalState()){
+//			System.out.println("\n<Stato finale>");
+//		}
+//		else
+		stato++;
 	}
 
 	//final state condition
 
-	public boolean isFinalState() {
-		return this.getTotale() >= 50 &&
-				this.stato>=5 &&
-				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
-	}
+//	public boolean isFinalState() {
+//		return this.getTotale() >= 50 &&
+//				this.stato>=5 &&
+//				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
+//	}
 
 	// Monitored functions
 
@@ -95,107 +103,6 @@ class RegistroDiCassav3_ASM {
 
 	public int getTotale(){
 		return this.esecuzione.totale.get();
-	}
-
-	// Cover functions
-
-	private void coverMonitored(){
-		coverServizioSelezionato();
-		coverPizzaInserita();
-		coverSceltaDiAggiuntaPizza();
-		coverSceltaDelTipoPizza();
-		coverInsertQuantita();
-		coverInsertPrezzo();
-	}
-
-	private void coverControlled(){
-		coverPizzaCorrente();
-		coverStatoCassa();
-		coverOutMess();
-		coverTotale();
-	}
-
-	// Monitored functions branches
-
-	private void coverServizioSelezionato(){
-		switch (this.getServizioSelezionato()){
-			case NEWORDINE:
-				System.out.println("Servizio NEWORDINE covered");
-				break;
-			case EXIT:
-				System.out.println("Servizio EXIT covered");
-				break;
-		}
-	}
-
-	private void coverPizzaInserita(){
-		// TODO: Abstract domain
-	}
-
-	private void coverSceltaDiAggiuntaPizza(){
-		switch (this.getSceltaDiAggiuntaPizza()){
-			case SI:
-				System.out.println("AggiungiPizza SI covered");
-				break;
-			case NO:
-				System.out.println("AggiungiPizza NO covered");
-		}
-	}
-
-	private void coverSceltaDelTipoPizza(){
-		switch (this.getSceltaDelTipoPizza()){
-			case OTHER:
-				System.out.println("SelezioneTipoDiPizza OTHER covered");
-				break;
-			case STANDARD:
-				System.out.println("SelezioneTipoDiPizza STANDARD covered");
-				break;
-		}
-	}
-
-	private void coverInsertQuantita(){
-		// TODO: Subset of Integer domain
-	}
-
-	private void coverInsertPrezzo(){
-		// TODO: Subset of Integer domain
-	}
-
-	// Controlled functions branches
-
-	private void coverPizzaCorrente() {
-		// TODO: Abstract domain
-	}
-
-	private void coverStatoCassa() {
-		switch (getStatoCassa()) {
-			case ATTENDI_ORDINAZIONI:
-				System.out.println("Stato ATTENDI_ORDINAZIONI covered");
-				break;
-			case SCEGLI_SE_AGGIUNGERE_PIZZA:
-				System.out.println("Stato SCEGLI_SE_AGGIUNGERE_PIZZA covered");
-				break;
-			case PIZZASTANDARD_SELEZIONATA:
-				System.out.println("Stato PIZZASTANDARD_SELEZIONATA covered");
-				break;
-			case SCEGLI_TIPO_DI_PIZZA:
-				System.out.println("Stato SCEGLI_TIPO_DI_PIZZA covered");
-				break;
-			case ALTRAPIZZA_SELEZIONATA:
-				System.out.println("Stato ALTRAPIZZA_SELEZIONATA covered");
-				break;
-			case CHIUSO:
-				System.out.println("Stato CHIUSO covered");
-				break;
-		}
-	}
-
-	private void coverOutMess() {
-		// TODO: String
-	}
-
-	private void coverTotale() {
-		// TODO: Integer
 	}
 
 	// ASM Methods

@@ -1,4 +1,4 @@
-# V013
+# V014
 I fixed the problem with the getOutMess modifying the Asmeta code and 
 generated a new version RegistroDiCassav3.java, now it is a String and 
 in fact evosuite recognizes it and can generate assertions based on it.
@@ -36,7 +36,7 @@ mvn dependency:copy-dependencies -DincludeScope=runtime
 java -jar evosuite-1.0.6.jar -setup target/classes target/dependency/commons-collections-3.2.2.jar
 ```
 ```shell
-java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiCassav2_ASM -criterion LINE:BRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=150
+java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiCassav3_ASM -criterion LINE:BRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=150
 ```
 
 ### log

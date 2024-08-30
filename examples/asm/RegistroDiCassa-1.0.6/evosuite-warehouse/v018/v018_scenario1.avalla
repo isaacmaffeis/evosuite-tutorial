@@ -1,0 +1,17 @@
+scenario v018_scenario1
+
+load RegistroDiCassav3.asm
+
+check statoCassa = ATTENDI_ORDINAZIONI;
+check totale = 0;
+
+set servizioSelezionato := NEWORDINE;
+set sceltaDiAggiuntaPizza := NO;
+set sceltaDelTipoPizza := STANDARD;
+set pizzaInserita := capricciosa;
+set insertQuantita := 2;
+set insertPrezzo := 2;
+step
+check statoCassa = ATTENDI_ORDINAZIONI;
+check totale = 0;
+check outMess = "Il totale :0";

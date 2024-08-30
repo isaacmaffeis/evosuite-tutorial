@@ -33,25 +33,25 @@ class RegistroDiCassav3_ASM {
 		System.out.println("</State " + stato + " (controlled)>");
 		System.out.println("\n<Stato attuale>");
 		printControlled();
-		/* monitored */
+		//monitored
 		coverMonitored();
-		/* controlled */
+		// controlled
 		coverControlled();
-		/*final state condition */
-		if(isFinalState()){
-			System.out.println("\n<Stato finale>");
-		}
-		else
-		  stato++;
+		//final state condition
+//		if(isFinalState()){
+//			System.out.println("\n<Stato finale>");
+//		}
+//		else
+		stato++;
 	}
 
 	//final state condition
 
-	public boolean isFinalState() {
-		return this.getTotale() >= 50 &&
-				this.stato>=5 &&
-				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
-	}
+//	public boolean isFinalState() {
+//		return this.getTotale() >= 50 &&
+//				this.stato>=5 &&
+//				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
+//	}
 
 	// Monitored functions
 
