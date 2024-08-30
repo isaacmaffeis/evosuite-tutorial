@@ -1,7 +1,6 @@
 # V007
 
 I've extended the search budget `-Dsearch_budget=150` (instead of 60) in order to help evosuite,
-in this way evosuite doesn't use private methods and it's a good thing, 
 but the generated scenarios are not so interesting: from 8 test cases only 1 is a parsable scenario 
 to AVALA, and even in this one there are useless checks.
 ### scenario test7
