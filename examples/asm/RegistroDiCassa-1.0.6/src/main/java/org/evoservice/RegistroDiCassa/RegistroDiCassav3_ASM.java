@@ -1,246 +1,265 @@
-package org.evoservice.RegistroDiCassa;// RegistroDiCassa_Exe.java automatically generated from ASM2CODE
-//Classe per l'esecuzione dei file java generati dalla traduzione di un programma ASM
+package org.evoservice.RegistroDiCassa;
+// RegistroDiCassav3_ASM.java automatically generated from ASM2CODE
 
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.AggiungiPizza;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.Pizza;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.PrezzoDomain;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.QuantitaDomain;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.SelezioneTipoDiPizza;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.Servizio;
-import org.evoservice.RegistroDiCassa.RegistroDiCassav3Sig.Stati;
+import java.util.Scanner;
 
+/**
+ * This class allows you to simulate the behavior of an Abstract State Machine (ASM)
+ * without asking the user for input values ​​of the monitored functions.
+ *
+ * <p>
+ * It has been optimized to be used with evosuite in order to automatically generate test scenarios.
+ * </p>
+ */
 class RegistroDiCassav3_ASM {
 
-	private final RegistroDiCassav3 esecuzione;
-	private int stato;
+  private final RegistroDiCassav3 esecuzione;
+  private int stato;
 
-	public RegistroDiCassav3_ASM() {
-		this.esecuzione = new RegistroDiCassav3();
-		this.stato = 1;
-	}
+  /**
+   * Constructor of the {@code RegistroDiCassav3_ASM} class. Creates a private instance of the asm
+   * {@link RegistroDiCassav3} and sets the initial state of the state machine to 1.
+   */
+  public RegistroDiCassav3_ASM(){
+    this.esecuzione = new RegistroDiCassav3();
+    this.stato = 0;
+  }
 
-	public void step(
-			Servizio servizio,
-			AggiungiPizza aggiungiPizza,
-			SelezioneTipoDiPizza selezioneTipoDiPizza,
-			int pizza,
-			int quantita,
-			int prezzo) {
-		System.out.println("<State " + stato + " (controlled)>");
-		printControlled();
-		askMonitored(servizio, aggiungiPizza, selezioneTipoDiPizza, pizza, quantita, prezzo);
-		this.esecuzione.updateASM();
-		System.out.println("</State " + stato + " (controlled)>");
-		System.out.println("\n<Stato attuale>");
-		printControlled();
-		/* monitored */
-		coverMonitored();
-		/* controlled */
-		coverControlled();
-		/*final state condition */
-		if(isFinalState()){
-			System.out.println("\n<Stato finale>");
-		}
-		else
-		  stato++;
-	}
+  /** The step function is the only public method of the ASM,
+   * it receives as parameters the values ​​of the monitored functions to be updated
+   * and allows to perform a step of the asm by incrementing the state.
+   */
+  public void step(
+      RegistroDiCassav3.Servizio servizioSelezionato,
+      int pizzaInserita,
+      RegistroDiCassav3.AggiungiPizza sceltaDiAggiuntaPizza,
+      RegistroDiCassav3.SelezioneTipoDiPizza sceltaDelTipoPizza,
+      int insertQuantita,
+      int insertPrezzo){
+    System.out.println("<State "+ stato +" (controlled)>");
 
-	//final state condition
+    printControlled();
+    setMonitored(servizioSelezionato,pizzaInserita,sceltaDiAggiuntaPizza,sceltaDelTipoPizza,insertQuantita,insertPrezzo);
+    this.esecuzione.updateASM();
 
-	public boolean isFinalState() {
-		return this.getTotale() >= 50 &&
-				this.stato>=5 &&
-				this.esecuzione.statoCassa.oldValue.equals(Stati.CHIUSO);
-	}
+    System.out.println("</State "+ stato +" (controlled)>");
 
-	// Monitored functions
+    System.out.println("\n<Stato attuale>");
+    printControlled();
 
-	private Servizio getServizioSelezionato(){
-		return this.esecuzione.servizioSelezionato.get();
-	}
+    /* monitored */
+    coverMonitored();
+    /* controlled */
+    coverControlled();
 
-	private Pizza getPizzaInserita(){
-		return this.esecuzione.pizzaInserita.get();
-	}
+    stato++;
+  }
 
-	private AggiungiPizza getSceltaDiAggiuntaPizza(){
-		return this.esecuzione.sceltaDiAggiuntaPizza.get();
-	}
+  // Monitored getters
 
-	private SelezioneTipoDiPizza getSceltaDelTipoPizza(){
-		return this.esecuzione.sceltaDelTipoPizza.get();
-	}
+  private RegistroDiCassav3.Servizio get_servizioSelezionato(){
+    return this.esecuzione.servizioSelezionato.get();
+  }
 
-	private QuantitaDomain getInsertQuantita(){
-		return this.esecuzione.insertQuantita.get();
-	}
+  private RegistroDiCassav3.Pizza get_pizzaInserita(){
+    return this.esecuzione.pizzaInserita.get();
+  }
 
-	private PrezzoDomain getInsertPrezzo(){
-		return this.esecuzione.insertPrezzo.get();
-	}
+  private RegistroDiCassav3.AggiungiPizza get_sceltaDiAggiuntaPizza(){
+    return this.esecuzione.sceltaDiAggiuntaPizza.get();
+  }
 
-	// Controlled functions
+  private RegistroDiCassav3.SelezioneTipoDiPizza get_sceltaDelTipoPizza(){
+    return this.esecuzione.sceltaDelTipoPizza.get();
+  }
 
-	public Pizza getPizzaCorrente(){
-		return this.esecuzione.pizzaCorrente.get();
-	}
+  private RegistroDiCassav3.QuantitaDomain get_insertQuantita(){
+    return this.esecuzione.insertQuantita.get();
+  }
 
-	public Stati getStatoCassa(){
-		return this.esecuzione.statoCassa.get();
-	}
+  private RegistroDiCassav3.PrezzoDomain get_insertPrezzo(){
+    return this.esecuzione.insertPrezzo.get();
+  }
 
-	public String getOutMess(){
-		return this.esecuzione.outMess.get();
-	}
+  // Controlled getters
 
-	public int getTotale(){
-		return this.esecuzione.totale.get();
-	}
+  public RegistroDiCassav3.Pizza get_pizzaCorrente(){
+    return this.esecuzione.pizzaCorrente.get();
+  }
 
-	// Cover functions
+  public RegistroDiCassav3.Stati get_statoCassa(){
+    return this.esecuzione.statoCassa.get();
+  }
 
-	private void coverMonitored(){
-		coverServizioSelezionato();
-		coverPizzaInserita();
-		coverSceltaDiAggiuntaPizza();
-		coverSceltaDelTipoPizza();
-		coverInsertQuantita();
-		coverInsertPrezzo();
-	}
+  public String get_outMess(){
+    return this.esecuzione.outMess.get();
+  }
 
-	private void coverControlled(){
-		coverPizzaCorrente();
-		coverStatoCassa();
-		coverOutMess();
-		coverTotale();
-	}
+  public int get_totale(){
+    return this.esecuzione.totale.get();
+  }
 
-	// Monitored functions branches
+  // Cover functions
 
-	private void coverServizioSelezionato(){
-		switch (this.getServizioSelezionato()){
-			case NEWORDINE:
-				System.out.println("Servizio NEWORDINE covered");
-				break;
-			case EXIT:
-				System.out.println("Servizio EXIT covered");
-				break;
-		}
-	}
+  private void coverMonitored(){
+    cover_servizioSelezionato();
+    cover_pizzaInserita();
+    cover_sceltaDiAggiuntaPizza();
+    cover_sceltaDelTipoPizza();
+    cover_insertQuantita();
+    cover_insertPrezzo();
+  }
 
-	private void coverPizzaInserita(){
-		// TODO: Abstract domain
-	}
+  private void coverControlled(){
+    cover_pizzaCorrente();
+    cover_statoCassa();
+    cover_outMess();
+    cover_totale();
+  }
 
-	private void coverSceltaDiAggiuntaPizza(){
-		switch (this.getSceltaDiAggiuntaPizza()){
-			case SI:
-				System.out.println("AggiungiPizza SI covered");
-				break;
-			case NO:
-				System.out.println("AggiungiPizza NO covered");
-		}
-	}
+  private void cover_pizzaCorrente(){
+    this.get_pizzaCorrente();
+    // No covered
+  }
 
-	private void coverSceltaDelTipoPizza(){
-		switch (this.getSceltaDelTipoPizza()){
-			case OTHER:
-				System.out.println("SelezioneTipoDiPizza OTHER covered");
-				break;
-			case STANDARD:
-				System.out.println("SelezioneTipoDiPizza STANDARD covered");
-				break;
-		}
-	}
+  private void cover_statoCassa(){
+    switch(this.get_statoCassa()){
+      case ATTENDI_ORDINAZIONI :
+        System.out.println("Stati ATTENDI_ORDINAZIONI covered");
+        // Stati ATTENDI_ORDINAZIONI covered
+        break;
+      case SCEGLI_SE_AGGIUNGERE_PIZZA :
+        System.out.println("Stati SCEGLI_SE_AGGIUNGERE_PIZZA covered");
+        // Stati SCEGLI_SE_AGGIUNGERE_PIZZA covered
+        break;
+      case CHIUSO :
+        System.out.println("Stati CHIUSO covered");
+        // Stati CHIUSO covered
+        break;
+      case SCEGLI_TIPO_DI_PIZZA :
+        System.out.println("Stati SCEGLI_TIPO_DI_PIZZA covered");
+        // Stati SCEGLI_TIPO_DI_PIZZA covered
+        break;
+      case PIZZASTANDARD_SELEZIONATA :
+        System.out.println("Stati PIZZASTANDARD_SELEZIONATA covered");
+        // Stati PIZZASTANDARD_SELEZIONATA covered
+        break;
+      case ALTRAPIZZA_SELEZIONATA :
+        System.out.println("Stati ALTRAPIZZA_SELEZIONATA covered");
+        // Stati ALTRAPIZZA_SELEZIONATA covered
+        break;
+    }
+  }
 
-	private void coverInsertQuantita(){
-		// TODO: Subset of Integer domain
-	}
+  private void cover_outMess(){
+    this.get_outMess();
+    // No covered
+  }
 
-	private void coverInsertPrezzo(){
-		// TODO: Subset of Integer domain
-	}
+  private void cover_servizioSelezionato(){
+    switch(this.get_servizioSelezionato()){
+      case NEWORDINE :
+        System.out.println("Servizio NEWORDINE covered");
+        // Servizio NEWORDINE covered
+        break;
+      case EXIT :
+        System.out.println("Servizio EXIT covered");
+        // Servizio EXIT covered
+        break;
+    }
+  }
 
-	// Controlled functions branches
+  private void cover_pizzaInserita(){
+    this.get_pizzaInserita();
+    // No covered
+  }
 
-	private void coverPizzaCorrente() {
-		// TODO: Abstract domain
-	}
+  private void cover_sceltaDiAggiuntaPizza(){
+    switch(this.get_sceltaDiAggiuntaPizza()){
+      case SI :
+        System.out.println("AggiungiPizza SI covered");
+        // AggiungiPizza SI covered
+        break;
+      case NO :
+        System.out.println("AggiungiPizza NO covered");
+        // AggiungiPizza NO covered
+        break;
+    }
+  }
 
-	private void coverStatoCassa() {
-		switch (getStatoCassa()) {
-			case ATTENDI_ORDINAZIONI:
-				System.out.println("Stato ATTENDI_ORDINAZIONI covered");
-				break;
-			case SCEGLI_SE_AGGIUNGERE_PIZZA:
-				System.out.println("Stato SCEGLI_SE_AGGIUNGERE_PIZZA covered");
-				break;
-			case PIZZASTANDARD_SELEZIONATA:
-				System.out.println("Stato PIZZASTANDARD_SELEZIONATA covered");
-				break;
-			case SCEGLI_TIPO_DI_PIZZA:
-				System.out.println("Stato SCEGLI_TIPO_DI_PIZZA covered");
-				break;
-			case ALTRAPIZZA_SELEZIONATA:
-				System.out.println("Stato ALTRAPIZZA_SELEZIONATA covered");
-				break;
-			case CHIUSO:
-				System.out.println("Stato CHIUSO covered");
-				break;
-		}
-	}
+  private void cover_sceltaDelTipoPizza(){
+    switch(this.get_sceltaDelTipoPizza()){
+      case STANDARD :
+        System.out.println("SelezioneTipoDiPizza STANDARD covered");
+        // SelezioneTipoDiPizza STANDARD covered
+        break;
+      case OTHER :
+        System.out.println("SelezioneTipoDiPizza OTHER covered");
+        // SelezioneTipoDiPizza OTHER covered
+        break;
+    }
+  }
 
-	private void coverOutMess() {
-		// TODO: String
-	}
+  private void cover_insertQuantita(){
+    this.get_insertQuantita();
+    // No covered
+  }
 
-	private void coverTotale() {
-		// TODO: Integer
-	}
+  private void cover_insertPrezzo(){
+    this.get_insertPrezzo();
+    // No covered
+  }
 
-	// ASM Methods
+  private void cover_totale(){
+    this.get_totale();
+    // No covered
+  }
 
-	private void printControlled() {
-		System.out.print("Pizza"+ " = {");
-		for(int i=0 ; i< this.esecuzione.Pizza_elemsList.size(); i++)
-			if(i!= this.esecuzione.Pizza_elemsList.size()-1)
-				System.out.print(this.esecuzione.Pizza_elemsList.get(i) +", ");
-			else
-				System.out.print(this.esecuzione.Pizza_elemsList.get(i));
-		System.out.println("}");
-		System.out.println("statoCassa = " + this.esecuzione.statoCassa.oldValue.name());
-		System.out.println("totale = " + this.esecuzione.totale.get());
-		System.out.println("outMess = " + this.esecuzione.outMess.get());
-		if(this.esecuzione.pizzaCorrente.get()!=null)
-			System.out.println("pizzaCorrente = " + this.esecuzione.pizzaCorrente.get().toString(this.esecuzione.pizzaCorrente.get()));
-	}
 
-	private void askMonitored(
-			Servizio servizio,
-			AggiungiPizza aggiungiPizza,
-			SelezioneTipoDiPizza selezioneTipoDiPizza,
-			int pizza,
-			int quantita,
-			int prezzo) {
+  // ASM Methods
 
-		this.esecuzione.servizioSelezionato.set(servizio);
-		System.out.println("Set servizio = " + servizio);
+  private void printControlled() {
 
-		this.esecuzione.sceltaDiAggiuntaPizza.set(aggiungiPizza);
-		System.out.println("Set aggiungiPizza = " + aggiungiPizza);
+    System.out.print("Pizza"+ " = {");
+    for(int i=0 ; i< esecuzione.Pizza_elemsList.size(); i++)
+      if(i!= esecuzione.Pizza_elemsList.size()-1)
+        System.out.print(esecuzione.Pizza_elemsList.get(i) +", ");
+      else
+        System.out.print(esecuzione.Pizza_elemsList.get(i));
+    System.out.println("}");
+    System.out.println("statoCassa = " + esecuzione.statoCassa.oldValue.name());
+    System.out.println("outMess = " + esecuzione.outMess.get());
+    System.out.println("totale = " + esecuzione.totale.get());
 
-		this.esecuzione.sceltaDelTipoPizza.set(selezioneTipoDiPizza);
-		System.out.println("Set selezioneTipoDiPizza = " + selezioneTipoDiPizza);
+  }
 
-		this.esecuzione.pizzaInserita.set(this.esecuzione.Pizza_Class.get(pizza));
-		System.out.println("Set pizzaInserita = " + this.esecuzione.Pizza_elemsList.get(pizza));
+  private void setMonitored(
+      RegistroDiCassav3.Servizio servizioSelezionato,
+      int pizzaInserita,
+      RegistroDiCassav3.AggiungiPizza sceltaDiAggiuntaPizza,
+      RegistroDiCassav3.SelezioneTipoDiPizza sceltaDelTipoPizza,
+      int insertQuantita,
+      int insertPrezzo) {
 
-		this.esecuzione.insertQuantita.set(QuantitaDomain.valueOf(this.esecuzione.QuantitaDomain_elems.get(quantita)));
-		System.out.println("Set quantita' = " + quantita);
+    this.esecuzione.servizioSelezionato.set(servizioSelezionato);
+    System.out.println("Set servizioSelezionato = " + servizioSelezionato);
 
-		this.esecuzione.insertPrezzo.set(PrezzoDomain.valueOf(this.esecuzione.PrezzoDomain_elems.get(prezzo-1)));
-		System.out.println("Set prezzo = " + prezzo);
+    this.esecuzione.pizzaInserita.set(this.esecuzione.Pizza_Class.get(pizzaInserita));
+    System.out.println("Set pizzaInserita = " + pizzaInserita);
 
-	}
+    this.esecuzione.sceltaDiAggiuntaPizza.set(sceltaDiAggiuntaPizza);
+    System.out.println("Set sceltaDiAggiuntaPizza = " + sceltaDiAggiuntaPizza);
 
+    this.esecuzione.sceltaDelTipoPizza.set(sceltaDelTipoPizza);
+    System.out.println("Set sceltaDelTipoPizza = " + sceltaDelTipoPizza);
+
+    this.esecuzione.insertQuantita_supporto.value = insertQuantita;
+    this.esecuzione.insertQuantita.set(this.esecuzione.insertQuantita_supporto);
+    System.out.println("Set insertQuantita = " + insertQuantita);
+
+    this.esecuzione.insertPrezzo_supporto.value = insertPrezzo;
+    this.esecuzione.insertPrezzo.set(this.esecuzione.insertPrezzo_supporto);
+    System.out.println("Set insertPrezzo = " + insertPrezzo);
+
+  }
 }
