@@ -270,16 +270,12 @@ class RegistroDiCassav3_ASM {
     this.esecuzione.sceltaDelTipoPizza.set(sceltaDelTipoPizza);
     System.out.println("Set sceltaDelTipoPizza = " + sceltaDelTipoPizza);
 
-    this.esecuzione.insertQuantita.set(
-        RegistroDiCassav3.QuantitaDomain.valueOf(
-            this.esecuzione.QuantitaDomain_elems.get(
-                insertQuantita - this.esecuzione.QuantitaDomain_elems.get(0))));
+    this.esecuzione.insertQuantita_supporto.value = insertQuantita;
+    this.esecuzione.insertQuantita.set(this.esecuzione.insertQuantita_supporto);
     System.out.println("Set insertQuantita = " + insertQuantita);
 
-    this.esecuzione.insertPrezzo.set(
-        RegistroDiCassav3.PrezzoDomain.valueOf(
-            this.esecuzione.PrezzoDomain_elems.get(
-                insertPrezzo - this.esecuzione.PrezzoDomain_elems.get(0))));
+    this.esecuzione.insertPrezzo_supporto.value = insertPrezzo;
+    this.esecuzione.insertPrezzo.set(this.esecuzione.insertPrezzo_supporto);
     System.out.println("Set insertPrezzo = " + insertPrezzo);
 
   }
