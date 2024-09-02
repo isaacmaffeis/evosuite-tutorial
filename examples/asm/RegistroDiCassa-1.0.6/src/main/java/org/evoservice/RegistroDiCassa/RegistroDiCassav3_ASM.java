@@ -59,7 +59,7 @@ class RegistroDiCassav3_ASM {
     coverMonitored();
     /* controlled */
     coverControlled();
-    /*final state condition */
+    /* final state condition */
     if(isFinalState()){
       System.out.println("\n<Stato finale>");
     }

@@ -64,8 +64,8 @@ public class CoffeeVendingMachineFSM {
     private void printControlled(coffeeVendingMachineNC esecuzione) {
         System.out.println("coins = " + esecuzione.coins.get().value);
         for (int i = 0; i < esecuzione.Product_elemsList.size(); i++) {
-            System.out.println(" available =>  (" + esecuzione.Product_elemsList.get(i) +
-                    ")= " + esecuzione.available.oldValues.get(esecuzione.Product_elemsList.get(i)).value);
+            System.out.println(" available =>  (" + esecuzione.Product_elemsList.get(i) + ")
+                    = " + esecuzione.available.oldValues.get(esecuzione.Product_elemsList.get(i)).value);
         }
     }
 
