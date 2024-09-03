@@ -1,0 +1,9 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,1.0,46,46
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,0.9198198198198199,52,49
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,1.0,52,52
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,0.9198198198198199,52,49
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,0.9198198198198199,52,49
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,1.0,52,52
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,0.9198198198198199,52,49
+org.evoservice.advancedClock.AdvancedClock_ASM,LINE;BRANCH,1.0,52,52
