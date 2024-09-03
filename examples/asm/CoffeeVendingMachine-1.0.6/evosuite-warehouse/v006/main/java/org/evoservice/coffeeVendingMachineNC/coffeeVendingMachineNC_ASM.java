@@ -49,17 +49,7 @@ class coffeeVendingMachineNC_ASM {
 		coverMonitored();
 		/* controlled */
 		coverControlled();
-		/* final state condition */
-		if(isFinalState()){
-			System.out.println("\n<Stato finale>");
-		}
-		else
-			stato++;
-	}
-	// final state condition
-	public boolean isFinalState(){
-		return
-				this.get_coins() ==25;
+		stato++;
 	}
 	// Monitored getters
 	private coffeeVendingMachineNC.CoinType get_insertedCoin(){
