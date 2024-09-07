@@ -1,11 +1,15 @@
-# V001
+# V003
 
-
+Fixed the abstract domain problems, the .value problems and the init problem.
 
 ## Problems
 
-- The ATM3.java class has compilation errors due to a double .value.value attribute.
-- The ATM3_ASM.java class has compilation errors due to undefined cover methods.
+I have identified a limit of this project:
+- it does not adapt to discrete interval domains, but only ranges.
+  For example in this case we have the domain subset of integer
+  `domain MoneySize = {10, 20, 40, 50, 100, 150, 200}`
+  that is correctly translated in the .java class,
+  but the _ASM class cannot handle it correctly
 
 
 ## How to

@@ -1,5 +1,5 @@
 package org.evoservice.atm3;
-// ATM3_ASM.java automatically generated from ASM2CODE
+// ATM3v2_ASM.java automatically generated from ASM2CODE
 
 import java.util.Scanner;
 
@@ -11,17 +11,17 @@ import java.util.Scanner;
  * It has been optimized to be used with evosuite in order to automatically generate test scenarios.
  * </p>
  */
-class ATM3_ASM {
+class ATM3v2_ASM {
 
-	private final ATM3 esecuzione;
+	private final ATM3v2 esecuzione;
 	private int stato;
 
 	/**
-	 * Constructor of the {@code ATM3_ASM} class. Creates a private instance of the asm
-	 * {@link ATM3} and sets the initial state of the state machine to 1.
+	 * Constructor of the {@code ATM3v2_ASM} class. Creates a private instance of the asm
+	 * {@link ATM3v2} and sets the initial state of the state machine to 1.
 	 */
-	public ATM3_ASM(){
-		this.esecuzione = new ATM3();
+	public ATM3v2_ASM(){
+		this.esecuzione = new ATM3v2();
 		this.stato = 0;
 	}
 
@@ -30,12 +30,12 @@ class ATM3_ASM {
 	 * and allows to perform a step of the asm by incrementing the state.
 	 */
 	public void step(
-			int insertedCard,
+			String insertedCard,
 			int insertedPin,
-			ATM3.Service selectedService,
+			ATM3v2.Service selectedService,
 			int insertMoneySizeStandard,
 			int insertMoneySizeOther,
-			ATM3.MoneySizeSelection standardOrOther){
+			ATM3v2.MoneySizeSelection standardOrOther){
 		System.out.println("<State "+ stato +" (controlled)>");
 
 		printControlled();
@@ -57,10 +57,22 @@ class ATM3_ASM {
 		coverMonitored();
 		/* controlled */
 		coverControlled();
-		stato++;
+		/* final state condition */
+		if(isFinalState()){
+			System.out.println("\n<Stato finale>");
+		}
+		else
+			stato++;
+	}
+
+	// final state condition
+	public boolean isFinalState(){
+		return
+				this.stato >=5 &&
+						this.get_atmState() ==ATM3v2.State.OUTOFSERVICE;
 	}
 	// Monitored getters
-	private ATM3.NumCard get_insertedCard(){
+	private ATM3v2.NumCard get_insertedCard(){
 		return this.esecuzione.insertedCard.get();
 	}
 
@@ -68,7 +80,7 @@ class ATM3_ASM {
 		return this.esecuzione.insertedPin.get();
 	}
 
-	private ATM3.Service get_selectedService(){
+	private ATM3v2.Service get_selectedService(){
 		return this.esecuzione.selectedService.get();
 	}
 
@@ -80,22 +92,58 @@ class ATM3_ASM {
 		return this.esecuzione.insertMoneySizeOther.get();
 	}
 
-	private ATM3.MoneySizeSelection get_standardOrOther(){
+	private ATM3v2.MoneySizeSelection get_standardOrOther(){
 		return this.esecuzione.standardOrOther.get();
 	}
 
 	// Controlled getters
 
-	public ATM3.NumCard get_currCard(){
+	public ATM3v2.NumCard get_currCard(){
 		return this.esecuzione.currCard.get();
 	}
 
-	public ATM3.State get_atmState(){
+	public ATM3v2.State get_atmState(){
 		return this.esecuzione.atmState.get();
+	}
+
+	public Boolean get_accessible_card1(){
+		return this.esecuzione.accessible.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card1")));
+	}
+
+	public Boolean get_accessible_card2(){
+		return this.esecuzione.accessible.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card2")));
+	}
+
+	public Boolean get_accessible_card3(){
+		return this.esecuzione.accessible.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card3")));
 	}
 
 	public int get_moneyLeft(){
 		return this.esecuzione.moneyLeft.get();
+	}
+
+	public int get_balance_card1(){
+		return this.esecuzione.balance.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card1")));
+	}
+
+	public int get_balance_card2(){
+		return this.esecuzione.balance.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card2")));
+	}
+
+	public int get_balance_card3(){
+		return this.esecuzione.balance.oldValues.get(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf("card3")));
 	}
 
 	public int get_numOfBalanceChecks(){
@@ -161,8 +209,10 @@ class ATM3_ASM {
 	}
 
 	private void cover_accessible(){
-		this.get_accessible();
-		//1 Branch covered
+		this.get_accessible_card1();
+		this.get_accessible_card2();
+		this.get_accessible_card3();
+		//3 Branch covered
 	}
 
 	private void cover_moneyLeft(){
@@ -171,8 +221,10 @@ class ATM3_ASM {
 	}
 
 	private void cover_balance(){
-		this.get_balance();
-		//1 Branch covered
+		this.get_balance_card1();
+		this.get_balance_card2();
+		this.get_balance_card3();
+		//3 Branch covered
 	}
 
 	private void cover_numOfBalanceChecks(){
@@ -249,14 +301,16 @@ class ATM3_ASM {
 	}
 
 	private void setMonitored(
-			int insertedCard,
+			String insertedCard,
 			int insertedPin,
-			ATM3.Service selectedService,
+			ATM3v2.Service selectedService,
 			int insertMoneySizeStandard,
 			int insertMoneySizeOther,
-			ATM3.MoneySizeSelection standardOrOther) {
+			ATM3v2.MoneySizeSelection standardOrOther) {
 
-		this.esecuzione.insertedCard.set(this.esecuzione.NumCard_Class.get(insertedCard));
+		this.esecuzione.insertedCard.set(
+				this.esecuzione.NumCard_Class.get(
+						this.esecuzione.NumCard_elemsList.indexOf(insertedCard)));
 		System.out.println("Set insertedCard = " + insertedCard);
 
 		this.esecuzione.insertedPin.set(insertedPin);
@@ -266,7 +320,7 @@ class ATM3_ASM {
 		System.out.println("Set selectedService = " + selectedService);
 
 		this.esecuzione.insertMoneySizeStandard.set(
-				ATM3.MoneySize.valueOf(
+				ATM3v2.MoneySize.valueOf(
 						this.esecuzione.MoneySize_elems.get(
 								insertMoneySizeStandard - this.esecuzione.MoneySize_elems.get(0))));
 		System.out.println("Set insertMoneySizeStandard = " + insertMoneySizeStandard);
