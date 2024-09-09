@@ -1,0 +1,10 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.trafficLight.TrafficLight_ASM,LINE;BRANCH,0.8214285714285714,63,53
+org.evoservice.trafficLight.TrafficLight_ASM,LINE;BRANCH,0.7875000000000001,69,56
+org.evoservice.trafficLight.TrafficLight_ASM,LINE;BRANCH,0.7875000000000001,69,56
+org.evoservice.trafficLight.TrafficLight_ASM,LINE;BRANCH,0.7875000000000001,69,56
+org.evoservice.trafficLight.TrafficLightv2_ASM,LINE;BRANCH,0.9761904761904762,63,62
+org.evoservice.trafficLight.TrafficLightv2_ASM,LINE;BRANCH,0.6136752136752137,71,45
+org.evoservice.trafficLight.TrafficLightv2_ASM,LINE;BRANCH,0.6136752136752137,71,45
+org.evoservice.trafficLight.TrafficLightv2_ASM,LINE;BRANCH,0.6136752136752137,71,45
+org.evoservice.trafficLight.TrafficLightv2_ASM,LINE;BRANCH,0.9807692307692308,72,71
