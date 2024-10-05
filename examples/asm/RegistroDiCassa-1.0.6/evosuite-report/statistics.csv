@@ -72,3 +72,7 @@ org.evoservice.RegistroDiCassa.RegistroDiCassav3_ASM,LINE;BRANCH,0.9649122807017
 org.evoservice.RegistroDiCassa.RegistroDiCassav3_ASM,LINE;BRANCH,0.9649122807017544,159,155
 org.evoservice.RegistroDiCassa.RegistroDiCassav3_ASM,LINE;BRANCH,0.96875,171,167
 org.evoservice.RegistroDiCassa.RegistroDiCassav3_ASM,LINE;BRANCH,0.9486204954954955,175,168
+org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.06610617958347559,333,19
+org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.0,333,0
+org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.0,333,0
+org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.8107075793786276,333,275
