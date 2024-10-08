@@ -6,7 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
+
+import org.apache.commons.collections4.Bag;
 
 public class RegistroDiCassav4 {
 	/////////////////////////////////////////////////
@@ -23,14 +26,14 @@ public class RegistroDiCassav4 {
 			val.add(a);
 		}
 
-		static String toString(Pizza a) {
+		String toString(Pizza a) {
 			if (elems.contains(a)) {
 				return val.get(elems.lastIndexOf(a));
 			} else
 				return null;
 		}
 
-		static Pizza get(String a) {
+		Pizza get(String a) {
 			if (val.contains(a)) {
 				return elems.get(val.lastIndexOf(a));
 			} else
@@ -453,8 +456,8 @@ public class RegistroDiCassav4 {
 
 
 	// Controlled getters
-	public String get_pizzaCorrente() {
-		return Pizza.toString(pizzaCorrente.get());
+	public Pizza get_pizzaCorrente() {
+		return pizzaCorrente.get();
 	}
 
 	public Stati get_statoCassa() {
@@ -504,4 +507,5 @@ public class RegistroDiCassav4 {
 				this.PrezzoDomain_elems.get(insertPrezzo - this.PrezzoDomain_elems.get(0))));
 		System.out.println("Set insertPrezzo = " + insertPrezzo);
 	}
+
 }

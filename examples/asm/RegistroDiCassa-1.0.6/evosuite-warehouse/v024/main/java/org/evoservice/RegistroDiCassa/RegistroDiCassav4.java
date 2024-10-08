@@ -6,7 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
+
+import org.apache.commons.collections4.Bag;
 
 public class RegistroDiCassav4 {
 	/////////////////////////////////////////////////
@@ -23,14 +26,14 @@ public class RegistroDiCassav4 {
 			val.add(a);
 		}
 
-		static String toString(Pizza a) {
+		String toString(Pizza a) {
 			if (elems.contains(a)) {
 				return val.get(elems.lastIndexOf(a));
 			} else
 				return null;
 		}
 
-		static Pizza get(String a) {
+		Pizza get(String a) {
 			if (val.contains(a)) {
 				return elems.get(val.lastIndexOf(a));
 			} else
@@ -453,8 +456,8 @@ public class RegistroDiCassav4 {
 
 
 	// Controlled getters
-	public String get_pizzaCorrente() {
-		return Pizza.toString(pizzaCorrente.get());
+	public Pizza get_pizzaCorrente() {
+		return pizzaCorrente.get();
 	}
 
 	public Stati get_statoCassa() {
@@ -472,7 +475,7 @@ public class RegistroDiCassav4 {
 
 	// Monitored Setters
 
-	public void set_servizioSelezionato(Servizio servizioSelezionato){
+	public void set_servizioSelezionato(RegistroDiCassav4.Servizio servizioSelezionato){
 		this.servizioSelezionato.set(servizioSelezionato);
 		System.out.println("Set servizioSelezionato = " + servizioSelezionato);
 	}
@@ -483,25 +486,26 @@ public class RegistroDiCassav4 {
 		System.out.println("Set pizzaInserita = " + pizzaInserita);
 	}
 
-	public void set_sceltaDiAggiuntaPizza(AggiungiPizza sceltaDiAggiuntaPizza){
+	public void set_sceltaDiAggiuntaPizza(RegistroDiCassav4.AggiungiPizza sceltaDiAggiuntaPizza){
 		this.sceltaDiAggiuntaPizza.set(sceltaDiAggiuntaPizza);
 		System.out.println("Set sceltaDiAggiuntaPizza = " + sceltaDiAggiuntaPizza);
 	}
 
-	public void set_sceltaDelTipoDiPizza(SelezioneTipoDiPizza sceltaDelTipoPizza){
+	public void set_sceltaDelTipoDiPizza(RegistroDiCassav4.SelezioneTipoDiPizza sceltaDelTipoPizza){
 		this.sceltaDelTipoPizza.set(sceltaDelTipoPizza);
 		System.out.println("Set sceltaDelTipoPizza = " + sceltaDelTipoPizza);
 	}
 
 	public void set_insertQuantita(int insertQuantita){
-		this.insertQuantita.set(QuantitaDomain.valueOf(this.QuantitaDomain_elems
+		this.insertQuantita.set(RegistroDiCassav4.QuantitaDomain.valueOf(this.QuantitaDomain_elems
 				.get(insertQuantita - this.QuantitaDomain_elems.get(0))));
 		System.out.println("Set insertQuantita = " + insertQuantita);
 	}
 
 	public void set_insertPrezzo(int insertPrezzo){
-		this.insertPrezzo.set(PrezzoDomain.valueOf(
+		this.insertPrezzo.set(RegistroDiCassav4.PrezzoDomain.valueOf(
 				this.PrezzoDomain_elems.get(insertPrezzo - this.PrezzoDomain_elems.get(0))));
 		System.out.println("Set insertPrezzo = " + insertPrezzo);
 	}
+
 }

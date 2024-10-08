@@ -428,9 +428,22 @@ public class RegistroDiCassav4 {
 	 * it receives as parameters the values ​​of the monitored functions to be updated
 	 * and allows to perform a step of the asm by incrementing the state.
 	 */
-	public void step() {
+	public void step(
+			Servizio servizioSelezionato,
+			String pizzaInserita,
+			AggiungiPizza sceltaDiAggiuntaPizza,
+			SelezioneTipoDiPizza sceltaDelTipoPizza,
+			int insertQuantita,
+			int insertPrezzo) {
 		System.out.println("<State " + stato + " (controlled)>");
 		printControlled();
+		setMonitored(
+				servizioSelezionato,
+				pizzaInserita,
+				sceltaDiAggiuntaPizza,
+				sceltaDelTipoPizza,
+				insertQuantita,
+				insertPrezzo);
 		updateASM();
 		System.out.println("</State " + stato + " (controlled)>");
 		System.out.println("\n<Stato attuale>");
@@ -470,38 +483,38 @@ public class RegistroDiCassav4 {
 	}
 
 
-	// Monitored Setters
+	private void setMonitored(
+			Servizio servizioSelezionato,
+			String pizzaInserita,
+			AggiungiPizza sceltaDiAggiuntaPizza,
+			SelezioneTipoDiPizza sceltaDelTipoPizza,
+			int insertQuantita,
+			int insertPrezzo) {
 
-	public void set_servizioSelezionato(Servizio servizioSelezionato){
 		this.servizioSelezionato.set(servizioSelezionato);
 		System.out.println("Set servizioSelezionato = " + servizioSelezionato);
-	}
 
-	public void set_pizzaInserita(String pizzaInserita){
 		this.pizzaInserita
 				.set(this.Pizza_Class.get(this.Pizza_elemsList.indexOf(pizzaInserita)));
 		System.out.println("Set pizzaInserita = " + pizzaInserita);
-	}
 
-	public void set_sceltaDiAggiuntaPizza(AggiungiPizza sceltaDiAggiuntaPizza){
 		this.sceltaDiAggiuntaPizza.set(sceltaDiAggiuntaPizza);
 		System.out.println("Set sceltaDiAggiuntaPizza = " + sceltaDiAggiuntaPizza);
-	}
 
-	public void set_sceltaDelTipoDiPizza(SelezioneTipoDiPizza sceltaDelTipoPizza){
 		this.sceltaDelTipoPizza.set(sceltaDelTipoPizza);
 		System.out.println("Set sceltaDelTipoPizza = " + sceltaDelTipoPizza);
-	}
 
-	public void set_insertQuantita(int insertQuantita){
-		this.insertQuantita.set(QuantitaDomain.valueOf(this.QuantitaDomain_elems
-				.get(insertQuantita - this.QuantitaDomain_elems.get(0))));
+		this.insertQuantita.set(
+				QuantitaDomain.valueOf(
+						QuantitaDomain_elems.get(
+								insertQuantita - QuantitaDomain_elems.get(0))));
 		System.out.println("Set insertQuantita = " + insertQuantita);
-	}
 
-	public void set_insertPrezzo(int insertPrezzo){
-		this.insertPrezzo.set(PrezzoDomain.valueOf(
-				this.PrezzoDomain_elems.get(insertPrezzo - this.PrezzoDomain_elems.get(0))));
+		this.insertPrezzo.set(
+				PrezzoDomain.valueOf(
+						PrezzoDomain_elems.get(
+								insertPrezzo - PrezzoDomain_elems.get(0))));
 		System.out.println("Set insertPrezzo = " + insertPrezzo);
 	}
+
 }

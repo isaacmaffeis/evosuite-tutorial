@@ -4,8 +4,12 @@ In this version I tested the generated class directly:
 in this way I could make all the methods private except the set, step and get methods which are
 the only public ones and visible from evosuite
 
+I have generated the tests with the criterion LINE:BRANCH, the coverage (tested with intelliJ
+is 83%) that is not bad, in the next version we can try to add the criterion CBRANCH
+
 ## Problems
 
+Abstract types treated this way are not tested correctly
 
 ## How to
 ```shell
@@ -65,7 +69,182 @@ java -jar .\evosuite-1.0.6.jar -class org.evoservice.RegistroDiCassa.RegistroDiC
 ## Scenario
 ### test0
 ```
+Set pizzaInserita = capricciosa
+Set sceltaDiAggiuntaPizza = SI
+Set sceltaDelTipoPizza = STANDARD
+Set insertQuantita = 0
+Set servizioSelezionato = NEWORDINE
+<State 0 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+outMess = 
+totale = 0
+</State 0 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_TIPO_DI_PIZZA
+outMess = Scegli il tipo di pizza desiderata:
+totale = 0
+<State 1 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_TIPO_DI_PIZZA
+outMess = Scegli il tipo di pizza desiderata:
+totale = 0
+</State 1 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = PIZZASTANDARD_SELEZIONATA
+outMess = Inserisci il nome di una pizza dell'elenco:
+totale = 0
+<State 2 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = PIZZASTANDARD_SELEZIONATA
+outMess = Inserisci il nome di una pizza dell'elenco:
+totale = 0
+</State 2 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA
+outMess = prezzo totale aggiornato
+totale = 0
 ```
 #### Avalla
 ```
+check succeeded: statoCassa = ATTENDI_ORDINAZIONI 
+check succeeded: totale = 0 
+check succeeded: outMess = \"\" 
+check succeeded: statoCassa = SCEGLI_TIPO_DI_PIZZA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"Scegli il tipo di pizza desiderata:\" 
+check succeeded: statoCassa = PIZZASTANDARD_SELEZIONATA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"Inserisci il nome di una pizza dell'elenco:\" 
+check succeeded: statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"prezzo totale aggiornato\" 
+```
+
+### test1
+```
+Set insertPrezzo = 5
+Set sceltaDiAggiuntaPizza = SI
+Set sceltaDelTipoPizza = OTHER
+Set insertQuantita = 0
+Set servizioSelezionato = NEWORDINE
+<State 0 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+outMess = 
+totale = 0
+</State 0 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_TIPO_DI_PIZZA
+outMess = Scegli il tipo di pizza desiderata:
+totale = 0
+<State 1 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_TIPO_DI_PIZZA
+outMess = Scegli il tipo di pizza desiderata:
+totale = 0
+</State 1 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ALTRAPIZZA_SELEZIONATA
+outMess = Inserisci il nome di una nuova pizza:
+totale = 0
+<State 2 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ALTRAPIZZA_SELEZIONATA
+outMess = Inserisci il nome di una nuova pizza:
+totale = 0
+</State 2 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA
+outMess = prezzo totale aggiornato
+totale = 0
+```
+#### Avalla
+```
+check succeeded: statoCassa = ATTENDI_ORDINAZIONI 
+check succeeded: totale = 0 
+check succeeded: outMess = \"\" 
+check succeeded: statoCassa = SCEGLI_TIPO_DI_PIZZA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"Scegli il tipo di pizza desiderata:\" 
+check succeeded: statoCassa = ALTRAPIZZA_SELEZIONATA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"Inserisci il nome di una nuova pizza:\" 
+check succeeded: statoCassa = SCEGLI_SE_AGGIUNGERE_PIZZA 
+check succeeded: totale = 0 
+check succeeded: outMess = \"prezzo totale aggiornato\" 
+```
+
+### test2
+```
+Set sceltaDiAggiuntaPizza = NO
+Set servizioSelezionato = NEWORDINE
+<State 0 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+outMess = 
+totale = 0
+</State 0 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+outMess = prezzo totale aggiornato
+totale = 0
+```
+#### Avalla
+```
+check succeeded: statoCassa = ATTENDI_ORDINAZIONI 
+check succeeded: totale = 0 
+check succeeded: outMess = \"\" 
+check succeeded: statoCassa = ATTENDI_ORDINAZIONI 
+check succeeded: totale = 0 
+check succeeded: outMess = \"prezzo totale aggiornato\" 
+```
+
+### test3
+```
+Set servizioSelezionato = EXIT
+<State 0 (controlled)>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = ATTENDI_ORDINAZIONI
+outMess = 
+totale = 0
+</State 0 (controlled)>
+
+<Stato attuale>
+Pizza = {margherita, marinara, capricciosa}
+statoCassa = CHIUSO
+outMess = Registro di cassa chiuso!
+totale = 0
+```
+#### Avalla
+```
+check succeeded: statoCassa = ATTENDI_ORDINAZIONI 
+check succeeded: totale = 0 
+check succeeded: outMess = \"\" 
+check succeeded: statoCassa = CHIUSO 
+check succeeded: totale = 0 
+check succeeded: outMess = \"Registro di cassa chiuso!\" 
+```
+
+### test4 - test5 -test6
+```
+No scenario found
+```
+#### Avalla
+```
+
 ```
