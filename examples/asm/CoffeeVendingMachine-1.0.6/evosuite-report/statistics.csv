@@ -31,3 +31,8 @@ org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC_ASM,LINE;BRANCH,0.9
 org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC_ASM,LINE;BRANCH,0.9655172413793103,87,85
 org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC_ASM,LINE;BRANCH,0.96875,94,92
 org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC_ASM,LINE;BRANCH,0.96875,94,92
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.615569823434992,222,141
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.5930979133226324,222,137
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH;CBRANCH,0.5527019796682718,311,179
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.6071428571428572,223,140
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH;CBRANCH,0.5566137566137567,313,181

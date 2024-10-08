@@ -1,0 +1,3 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.atm3.ATM3v2,LINE;BRANCH,0.4591954022988506,532,255
+org.evoservice.atm3.ATM3v2,LINE;BRANCH;CBRANCH,0.41754789272030646,764,333

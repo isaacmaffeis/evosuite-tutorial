@@ -1,2 +1,6 @@
 TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
 org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM,LINE;BRANCH;CBRANCH,1.0,65,65
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.6293650793650793,223,144
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.6268057784911718,222,143
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH,0.6293650793650793,223,144
+org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC,LINE;BRANCH;CBRANCH,0.601058201058201,313,193

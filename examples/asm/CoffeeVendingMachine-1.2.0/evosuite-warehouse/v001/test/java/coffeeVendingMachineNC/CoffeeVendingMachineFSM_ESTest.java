@@ -8,7 +8,7 @@ package coffeeVendingMachineNC;
 import org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM_ESTest_scaffolding;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.evoservice.coffeeVendingMachineNC.CoffeeVendingMachineFSM;
+
 import org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNC;
 import org.evoservice.coffeeVendingMachineNC.coffeeVendingMachineNCSig;
 import org.evosuite.runtime.EvoRunner;
