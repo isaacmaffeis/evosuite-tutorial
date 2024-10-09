@@ -5,7 +5,7 @@ In this version I tested the generated class directly:
   the only public ones and visible from evosuite
 - Criterion LINE:BRANCH
 - version with the step functions args
-- coverage: IntelliJ 88% , evosuite 59%
+- coverage: evosuite 59%
 - all the reachable rules covered, not all the main rule conditions
 
 ## Problems

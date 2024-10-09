@@ -5,7 +5,7 @@ In this version I tested the generated class directly:
   the only public ones and visible from evosuite
 - Criterion LINE:BRANCH
 - version with monitored sets 
-- coverage: IntelliJ 88% , evosuite 60%
+- coverage: evosuite 60%
 - all the reachable rules covered, improved the main rule conditions
 
 ## Problems

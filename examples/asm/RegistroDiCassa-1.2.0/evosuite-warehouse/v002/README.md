@@ -2,7 +2,8 @@
 Generating test for RegistroDiCassav4 with evosuite 1.2.0 using DynaMOSA search. 
 - version with setters
 
-In this version the result is slightly better, we've increased the branch coverage to 87% from 84%
+In this version the result is slightly better, we've increased the branch coverage to 82% from 77%,
+also the most important thing is that it covers almost all the rules well, compared to version 1.0.6
 
 In this example I saw that the Java class with setters performs better with the DynaMOSA algorithm,
 while the step function with args version works better with random search.

@@ -5,7 +5,7 @@ Using the 1.2.0 version of EvoSuite
   the only public ones and visible from evosuite
 - Criterion LINE:BRANCH:CBRANCH
 - version with monitored sets
-- coverage: IntelliJ 88% , evosuite 60%
+- coverage: evosuite 60%
 - all the reachable rules covered, all the main rule conditions covered
 
 The 1.2.0 version with DynaMOSA obtained better result than the 1.0.6.
