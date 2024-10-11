@@ -4,8 +4,8 @@ In this version I tested the generated class directly:
 in this way I could make all the methods private except the set, step and get methods which are
 the only public ones and visible from evosuite
 
-I have generated the tests with the criterion LINE:BRANCH, the coverage (tested with intelliJ
-is 83%) that is not bad, in the next version we can try to add the criterion CBRANCH
+I have generated the tests with the criterion LINE:BRANCH, the coverage (81%) is not bad, 
+in the next version we can try to add the criterion CBRANCH
 
 ## Problems
 

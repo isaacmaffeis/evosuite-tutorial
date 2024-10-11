@@ -1,5 +1,5 @@
 package org.evoservice.RegistroDiCassa;
-// RegistroDiCassav4.java automatically generated from ASM2CODE
+// RegistroDiCassa_TestGen.java automatically generated from ASM2CODE
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

@@ -84,3 +84,6 @@ org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.8195043103448276,
 org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.8247126436781609,328,275
 org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH,0.8154233526800956,333,272
 org.evoservice.RegistroDiCassa.RegistroDiCassav4,LINE;BRANCH;CBRANCH,0.7918373733925117,434,341
+org.evoservice.RegistroDiCassa.RegistroDiCassa_TestGen,LINE;BRANCH,0.47477337391649577,373,189
+org.evoservice.RegistroDiCassa.RegistroDiCassa_TestGen,LINE;BRANCH,0.8530839895013123,374,315
+org.evoservice.RegistroDiCassa.RegistroDiCassa_TestGen,LINE;BRANCH,0.8587639780321578,373,316

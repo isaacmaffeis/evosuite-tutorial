@@ -5,9 +5,8 @@ In this version I added the criterion CBRANCH
 ## Problems
 
 the operation did not bring the expected results:
-- the coverage measured with intelliJ is the same (83%), while evosuite reports a worse coverage (73%).
+- evosuite reports a worse coverage (73%).
 - we can observe how some rules were not covered. 
-- this criterion brings greater complexity in the tests (try-cath structure).
 
 ## How to
 ```shell

@@ -1,0 +1,6 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.wrapper.RegistroDiCassav4_ASM,LINE;BRANCH,0.807032590051458,75,63
+org.evoservice.wrapper.RegistroDiCassav4_ASM,LINE;BRANCH,0.7727910238429172,85,67
+org.evoservice.wrapper.RegistroDiCassav4_ASM,LINE;BRANCH,0.8169336384439359,80,68
+org.evoservice.wrapper.RegistroDiCassav4_ASM,LINE;BRANCH,0.8788291354663036,178,158
+org.evoservice.wrapper.RegistroDiCassav4_ASM,LINE;BRANCH,0.9275304926342468,166,157

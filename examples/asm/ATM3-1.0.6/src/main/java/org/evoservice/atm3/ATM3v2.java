@@ -299,34 +299,15 @@ public class ATM3v2 {
 	private Boolean allowed(NumCard _c, Integer _m){return (balance.get(_c) >= _m);}
 	
 	// Conversione delle regole ASM in metodi java
-
-	private void r_subtractFrom_seq (NumCard _c, Integer _m){
-		balance.set(_c, (balance.get(_c) - _m));
-	}
 	
 	private void r_subtractFrom (NumCard _c, Integer _m){
 		balance.set(_c, (balance.get(_c) - _m));
-	}
-
-	private void r_goOutOfService_seq(){
-		atmState.set(State.OUTOFSERVICE);
 	}
 
 	private void r_goOutOfService(){
 		atmState.set(State.OUTOFSERVICE);
 	}
 
-	private void r_insertcard_seq(){
-		if (Boolean.TRUE.equals((atmState.get() == State.AWAITCARD))){ 
-			if (Boolean.TRUE.equals(	NumCard.elems.stream().anyMatch(c -> c.toString(c).equals(insertedCard.get().toString(c)))
-			)){ 
-				//{ //par
-					currCard.set(insertedCard.get());
-					atmState.set(State.AWAITPIN);
-				//} //endpar
-			}
-		}
-	}
 
 	private void r_insertcard(){
 		if (Boolean.TRUE.equals((atmState.get() == State.AWAITCARD))){ 
@@ -336,19 +317,6 @@ public class ATM3v2 {
 					currCard.set(insertedCard.get());
 					atmState.set(State.AWAITPIN);
 				//} //endpar
-			}
-		}
-	}
-
-	private void r_enterPin_seq(){
-		if (Boolean.TRUE.equals((atmState.get() == State.AWAITPIN))){ 
-			if (Boolean.TRUE.equals((insertedPin.get() == pin(currCard.get())) && accessible.get(currCard.get()))){ 
-				//{ //par
-					atmState.set(State.CHOOSE);
-					numOfBalanceChecks.set(0);
-				//} //endpar
-			} else {
-					atmState.set(State.AWAITCARD);
 			}
 		}
 	}
@@ -363,26 +331,6 @@ public class ATM3v2 {
 			} else {
 					atmState.set(State.AWAITCARD);
 			}
-		}
-	}
-
-	private void r_chooseService_seq(){
-		if (Boolean.TRUE.equals((atmState.get() == State.CHOOSE))){ 
-			//{ //par
-				if (Boolean.TRUE.equals((selectedService.get() == Service.BALANCE))){ 
-					if (Boolean.TRUE.equals((numOfBalanceChecks.get() == 0))){ 
-						numOfBalanceChecks.set((numOfBalanceChecks.get() + 1));
-					} else {
-							atmState.set(State.AWAITCARD);
-					}
-				}
-				if (Boolean.TRUE.equals((selectedService.get() == Service.WITHDRAWAL))){ 
-					atmState.set(State.CHOOSEAMOUNT);
-				}
-				if (Boolean.TRUE.equals((selectedService.get() == Service.EXIT))){ 
-					atmState.set(State.AWAITCARD);
-				}
-			//} //endpar
 		}
 	}
 
@@ -406,19 +354,6 @@ public class ATM3v2 {
 		}
 	}
 
-	private void r_chooseAmount_seq(){
-		if (Boolean.TRUE.equals((atmState.get() == State.CHOOSEAMOUNT))){ 
-			//{ //par
-				if (Boolean.TRUE.equals((standardOrOther.get() == MoneySizeSelection.STANDARD))){ 
-					atmState.set(State.STANDARDAMOUNTSELECTION);
-				}
-				if (Boolean.TRUE.equals((standardOrOther.get() == MoneySizeSelection.OTHER))){ 
-					atmState.set(State.OTHERAMOUNTSELECTION);
-				}
-			//} //endpar
-		}
-	}
-
 	private void r_chooseAmount(){
 		if (Boolean.TRUE.equals((atmState.get() == State.CHOOSEAMOUNT))){ 
 			//{ //par
@@ -432,15 +367,6 @@ public class ATM3v2 {
 		}
 	}
 
-	private void r_grantMoney_seq (Integer _m){
-		//{ //par
-			accessible.set(currCard.get(), false);
-			r_subtractFrom(currCard.get(), _m);
-			moneyLeft.set((moneyLeft.get() - _m));
-			atmState.set(State.AWAITCARD);
-		//} //endpar
-	}
-
 	private void r_grantMoney (Integer _m){
 		//{ //par
 			accessible.set(currCard.get(), false);
@@ -450,42 +376,16 @@ public class ATM3v2 {
 		//} //endpar
 	}
 
-	private void r_processMoneyRequest_seq (Integer _m){
-		if (Boolean.TRUE.equals(allowed(currCard.get(), _m))){ 
-			r_grantMoney(_m);
-		}
-	}
-
 	private void r_processMoneyRequest (Integer _m){
 		if (Boolean.TRUE.equals(allowed(currCard.get(), _m))){ 
 			r_grantMoney(_m);
 		}
 	}
 
-	private void r_prelievo_seq(){
-		//{ //par
-			if (Boolean.TRUE.equals((atmState.get() == State.STANDARDAMOUNTSELECTION))){ 
-				if (Boolean.TRUE.equals(	MoneySize.elems.stream().anyMatch(c -> c.equals(insertMoneySizeStandard.get()))
-				)){ 
-					if (Boolean.TRUE.equals((insertMoneySizeStandard.get().value <= moneyLeft.get()))){ 
-						r_processMoneyRequest(insertMoneySizeStandard.get().value);
-					}
-				}
-			}
-			if (Boolean.TRUE.equals((atmState.get() == State.OTHERAMOUNTSELECTION))){ 
-				if (Boolean.TRUE.equals(((insertMoneySizeOther.get() % 10) == 0))){ 
-					if (Boolean.TRUE.equals((insertMoneySizeOther.get() <= moneyLeft.get()))){ 
-						r_processMoneyRequest(insertMoneySizeOther.get());
-					}
-				}
-			}
-		//} //endpar
-	}
-
 	private void r_prelievo(){
 		//{ //par
 			if (Boolean.TRUE.equals((atmState.get() == State.STANDARDAMOUNTSELECTION))){ 
-				if (Boolean.TRUE.equals(	MoneySize.elems.stream().anyMatch(c -> c.equals(insertMoneySizeStandard.get()))
+				if (Boolean.TRUE.equals(	MoneySize.elems.stream().anyMatch(c -> c.equals(insertMoneySizeStandard.get().value))
 				)){ 
 					if (Boolean.TRUE.equals((insertMoneySizeStandard.get().value <= moneyLeft.get()))){ 
 						r_processMoneyRequest(insertMoneySizeStandard.get().value);
@@ -500,30 +400,6 @@ public class ATM3v2 {
 				}
 			}
 		//} //endpar
-	}
-
-	private void r_Main_seq(){
-		if (Boolean.TRUE.equals((moneyLeft.get() < minMoney()))){ 
-			r_goOutOfService();
-		} else {
-				//{ //par
-					r_insertcard();
-					r_enterPin();
-					r_chooseService();
-					r_chooseAmount();
-					//{ //seq
-						r_prelievo();
-						
-						fireUpdateSet();
-						if (Boolean.TRUE.equals(! accessible.get(currCard.get()))){ 
-							accessible.set(currCard.get(), true);
-							accessible.oldValues = accessible.newValues;
-						}
-						
-						fireUpdateSet();
-					//} //endseq
-				//} //endpar
-		}
 	}
 	
 	private void r_Main(){

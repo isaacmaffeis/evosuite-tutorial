@@ -22,7 +22,7 @@ mvn dependency:copy-dependencies -DincludeScope=runtime
 java -jar evosuite-1.2.0.jar -setup target/classes target/dependency/commons-collections-3.2.2.jar
 ```
 ```shell
-java -jar .\evosuite-1.2.0jar -class org.evoservice.RegistroDiCassa.RegistroDiCassav4 -criterion LINE:BRANCH:CBRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=60 -generateMOSuite
+java -jar .\evosuite-1.2.0.jar -class org.evoservice.RegistroDiCassa.RegistroDiCassav4 -criterion LINE:BRANCH:CBRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=60 -generateMOSuite
 ```
 
 ### log
