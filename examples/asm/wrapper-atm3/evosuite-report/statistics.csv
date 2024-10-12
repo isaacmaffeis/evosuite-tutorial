@@ -1,3 +1,4 @@
 TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
 org.evoservice.wrapper.ATM3v2_ASM,LINE;BRANCH,1.0,83,83
 org.evoservice.wrapper.ATM3v2_ASM,LINE;BRANCH,0.7568226475511244,242,189
+org.evoservice.wrapper.ATM3v2_ASM,LINE;BRANCH,0.7744341750964268,242,193

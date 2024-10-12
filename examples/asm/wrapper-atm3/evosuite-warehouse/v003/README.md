@@ -1,10 +1,12 @@
-# V002
+# V003
 
 Version with:
+- evosuite 1.2.0
 - wrapper class with setters, step and getters
 - PROS: I don't have to change the generated java class
 - cover rules functions: in this way evosuite can see the rules and tries to cover them
-- Cover data: evosuite 75%, intelliJ 56% branch and 85% lines in the _ASM class
+- Cover data (1.0.6): evosuite 75%, intelliJ 56% branch and 85% lines in the _ASM class
+- Cover data (1.2.0): evosuite 77%, intelliJ 59% branch and 86% lines in the _ASM class
 
 ## Problems
 this example is more complex and evosuite struggles to cover all the branches, 
@@ -18,10 +20,10 @@ mvn compile
 mvn dependency:copy-dependencies -DincludeScope=runtime
 ```
 ```shell
-java -jar ../../../resources/evosuite-1.0.6.jar -setup target/classes target/dependency/commons-collections-3.2.2.jar
+java -jar ../../../resources/evosuite-1.2.0.jar -setup target/classes target/dependency/commons-collections-3.2.2.jar
 ```
 ```shell
-java -jar ../../../resources/evosuite-1.0.6.jar -class org.evoservice.wrapper.ATM3v2_ASM -criterion LINE:BRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=60
+java -jar ../../../resources/evosuite-1.2.0.jar -class org.evoservice.wrapper.ATM3v2_ASM -criterion LINE:BRANCH -Dminimize=true -Dassertion_strategy=all -Dsearch_budget=60
 ```
 
 ### log
