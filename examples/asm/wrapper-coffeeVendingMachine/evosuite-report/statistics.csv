@@ -1,0 +1,4 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.evoservice.wrapper.coffeeVendingMachineNC_ASM,LINE;BRANCH,1.0,37,37
+org.evoservice.wrapper.coffeeVendingMachineNC_ASM,LINE;BRANCH,1.0,37,37
+org.evoservice.wrapper.coffeeVendingMachineNC_ASM,LINE;BRANCH,0.967741935483871,84,82
