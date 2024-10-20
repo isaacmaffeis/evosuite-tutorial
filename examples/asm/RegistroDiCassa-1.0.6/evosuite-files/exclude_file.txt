@@ -1,1 +1,0 @@
-set_servizioSelezionato(RegistroDiCassav4.Servizio servizioSelezionato)

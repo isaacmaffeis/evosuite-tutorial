@@ -11,22 +11,22 @@ import java.util.List;
 
 import org.apache.commons.collections4.Bag;
 
-abstract class RegistroDiCassav4Sig {
+class RegistroDiCassav4 {
 	/////////////////////////////////////////////////
 	/// DOMAIN CONTAINERS
 	/////////////////////////////////////////////////
 	/* Domain containers here */
 	//Variabile di tipo astratto
 	static class Pizza {
-		static List<Pizza> elems = new ArrayList<>();
-		static List<String> val = new ArrayList<>();
+		private static List<Pizza> elems = new ArrayList<>();
+		private static List<String> val = new ArrayList<>();
 
 		Pizza(String a) {
 			elems.add(this);
 			val.add(a);
 		}
 
-		String toString(Pizza a) {
+		static String toString(Pizza a) {
 			if (elems.contains(a)) {
 				return val.get(elems.lastIndexOf(a));
 			} else
@@ -46,7 +46,7 @@ abstract class RegistroDiCassav4Sig {
 
 	//Variabile di tipo Concreto o Enumerativo
 	static class PrezzoDomain {
-		static List<Integer> elems = new ArrayList<>();
+		private static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
 		static PrezzoDomain valueOf(Integer val) {
@@ -77,7 +77,7 @@ abstract class RegistroDiCassav4Sig {
 
 	//Variabile di tipo Concreto o Enumerativo
 	static class QuantitaDomain {
-		static List<Integer> elems = new ArrayList<>();
+		private static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
 		static QuantitaDomain valueOf(Integer val) {
@@ -198,7 +198,6 @@ abstract class RegistroDiCassav4Sig {
 	Fun0Ctrl<String> outMess = new Fun0Ctrl<>();
 
 	//Funzione di tipo statico
-	abstract Integer getPrezzo(Pizza param0_getPrezzo);
 
 	//Funzione di tipo monitored
 	Fun0<Servizio> servizioSelezionato = new Fun0<>();
@@ -223,28 +222,7 @@ abstract class RegistroDiCassav4Sig {
 	//Funzione di tipo Controlled
 	Fun0Ctrl<Integer> totale = new Fun0Ctrl<>();
 
-	////////////////////////////////////////////////
-	/// RULE DEFINITION
-	/////////////////////////////////////////////////
-	/* Rule definition here */
-	abstract void r_aggiungiPizzaStandardAlTotale();
 
-	abstract void r_aggiungiAlTotale();
-
-	abstract void r_attendiOrdinazioni();
-
-	abstract void r_scegliSeAggiungerePizza();
-
-	abstract void r_scegliTipoDiPizza();
-
-	abstract void r_pizzaStandardSelezionata();
-
-	abstract void r_altraPizzaSelezionata();
-
-	abstract void r_Main();
-}
-
-class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 	// Inizializzazione di funzioni e domini
 	RegistroDiCassav4() {
 		//Definizione iniziale dei domini statici
@@ -290,12 +268,10 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 	}
 
 	// Conversione delle regole ASM in metodi java
+	boolean branch_r_aggiungiPizzaStandardAlTotale_master = false;
 
-	boolean cover_r_aggiungiPizzaStandardAlTotale = false;
-
-	@Override
 	void r_aggiungiPizzaStandardAlTotale() {
-		cover_r_aggiungiPizzaStandardAlTotale = true;
+		branch_r_aggiungiPizzaStandardAlTotale_master = true;
 		//{ //seq
 		totale.set((totale.get() + (getPrezzo(pizzaCorrente.get()) * insertQuantita.get().value)));
 		totale.oldValue = totale.newValue;
@@ -306,11 +282,10 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		//} //endseq
 	}
 
-	boolean cover_r_aggiungiAlTotale = false;
+	boolean branch_r_aggiungiAlTotale_master = false;
 
-	@Override
 	void r_aggiungiAlTotale() {
-		cover_r_aggiungiAlTotale = true;
+		branch_r_aggiungiAlTotale_master = true;
 		//{ //seq
 		totale.set((totale.get() + (insertQuantita.get().value * insertPrezzo.get().value)));
 		totale.oldValue = totale.newValue;
@@ -321,26 +296,25 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		//} //endseq
 	}
 
-	boolean cover_r_attendiOrdinazioni = false;
-	boolean cover_r_attendiOrdinazioni_1 = false;
-	boolean cover_r_attendiOrdinazioni_2 = false;
-	boolean cover_r_attendiOrdinazioni_3 = false;
+	boolean branch_r_attendiOrdinazioni_master = false;
+	boolean branch_r_attendiOrdinazioni_1 = false;
+	boolean branch_r_attendiOrdinazioni_2 = false;
+	boolean branch_r_attendiOrdinazioni_3 = false;
 
-	@Override
 	void r_attendiOrdinazioni() {
-		cover_r_attendiOrdinazioni = true;
+		branch_r_attendiOrdinazioni_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.ATTENDI_ORDINAZIONI))) {
-			cover_r_attendiOrdinazioni_1 = true;
+			branch_r_attendiOrdinazioni_1 = true;
 			//{ //par
 			if (Boolean.TRUE.equals((servizioSelezionato.get() == Servizio.EXIT))) {
-				cover_r_attendiOrdinazioni_2 = true;
+				branch_r_attendiOrdinazioni_2 = true;
 				//{ //par
 				statoCassa.set(Stati.CHIUSO);
 				outMess.set("Registro di cassa chiuso!");
 				//} //endpar
 			}
 			if (Boolean.TRUE.equals((servizioSelezionato.get() == Servizio.NEWORDINE))) {
-				cover_r_attendiOrdinazioni_3 = true;
+				branch_r_attendiOrdinazioni_3 = true;
 				//{ //par
 				totale.set(0);
 				statoCassa.set(Stati.SCEGLI_SE_AGGIUNGERE_PIZZA);
@@ -351,26 +325,25 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		}
 	}
 
-	boolean cover_r_scegliSeAggiungerePizza = false;
-	boolean cover_r_scegliSeAggiungerePizza_1 = false;
-	boolean cover_r_scegliSeAggiungerePizza_2 = false;
-	boolean cover_r_scegliSeAggiungerePizza_3 = false;
+	boolean branch_r_scegliSeAggiungerePizza_master = false;
+	boolean branch_r_scegliSeAggiungerePizza_1 = false;
+	boolean branch_r_scegliSeAggiungerePizza_2 = false;
+	boolean branch_r_scegliSeAggiungerePizza_3 = false;
 
-	@Override
 	void r_scegliSeAggiungerePizza() {
-		cover_r_scegliSeAggiungerePizza = true;
+		branch_r_scegliSeAggiungerePizza_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.SCEGLI_SE_AGGIUNGERE_PIZZA))) {
-			cover_r_scegliSeAggiungerePizza_1 = true;
+			branch_r_scegliSeAggiungerePizza_1 = true;
 			//{ //par
 			if (Boolean.TRUE.equals((sceltaDiAggiuntaPizza.get() == AggiungiPizza.SI))) {
-				cover_r_scegliSeAggiungerePizza_2 = true;
+				branch_r_scegliSeAggiungerePizza_2 = true;
 				//{ //par
 				statoCassa.set(Stati.SCEGLI_TIPO_DI_PIZZA);
 				outMess.set("Scegli il tipo di pizza desiderata:");
 				//} //endpar
 			}
 			if (Boolean.TRUE.equals((sceltaDiAggiuntaPizza.get() == AggiungiPizza.NO))) {
-				cover_r_scegliSeAggiungerePizza_3 = true;
+				branch_r_scegliSeAggiungerePizza_3 = true;
 				//{ //seq
 				outMess.set("prezzo totale aggiornato");
 				outMess.oldValue = outMess.newValue;
@@ -384,26 +357,25 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		}
 	}
 
-	boolean cover_r_scegliTipoDiPizza = false;
-	boolean cover_r_scegliTipoDiPizza_1 = false;
-	boolean cover_r_scegliTipoDiPizza_2 = false;
-	boolean cover_r_scegliTipoDiPizza_3 = false;
+	boolean branch_r_scegliTipoDiPizza_master = false;
+	boolean branch_r_scegliTipoDiPizza_1 = false;
+	boolean branch_r_scegliTipoDiPizza_2 = false;
+	boolean branch_r_scegliTipoDiPizza_3 = false;
 
-	@Override
 	void r_scegliTipoDiPizza() {
-		cover_r_scegliTipoDiPizza = true;
+		branch_r_scegliTipoDiPizza_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.SCEGLI_TIPO_DI_PIZZA))) {
-			cover_r_scegliTipoDiPizza_1 = true;
+			branch_r_scegliTipoDiPizza_1 = true;
 			//{ //par
 			if (Boolean.TRUE.equals((sceltaDelTipoPizza.get() == SelezioneTipoDiPizza.STANDARD))) {
-				cover_r_scegliTipoDiPizza_2 = true;
+				branch_r_scegliTipoDiPizza_2 = true;
 				//{ //par
 				statoCassa.set(Stati.PIZZASTANDARD_SELEZIONATA);
 				outMess.set("Inserisci il nome di una pizza dell'elenco:");
 				//} //endpar
 			}
 			if (Boolean.TRUE.equals((sceltaDelTipoPizza.get() == SelezioneTipoDiPizza.OTHER))) {
-				cover_r_scegliTipoDiPizza_3 = true;
+				branch_r_scegliTipoDiPizza_3 = true;
 				//{ //par
 				statoCassa.set(Stati.ALTRAPIZZA_SELEZIONATA);
 				outMess.set("Inserisci il nome di una nuova pizza:");
@@ -413,19 +385,18 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		}
 	}
 
-	boolean cover_r_pizzaStandardSelezionata = false;
-	boolean cover_r_pizzaStandardSelezionata_1 = false;
-	boolean cover_r_pizzaStandardSelezionata_2 = false;
-	boolean cover_r_pizzaStandardSelezionata_3 = false;
+	boolean branch_r_pizzaStandardSelezionata_master = false;
+	boolean branch_r_pizzaStandardSelezionata_1 = false;
+	boolean branch_r_pizzaStandardSelezionata_2 = false;
+	boolean branch_r_pizzaStandardSelezionata_3 = false;
 
-	@Override
 	void r_pizzaStandardSelezionata() {
-		cover_r_pizzaStandardSelezionata = true;
+		branch_r_pizzaStandardSelezionata_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.PIZZASTANDARD_SELEZIONATA))) {
-			cover_r_pizzaStandardSelezionata_1 = true;
+			branch_r_pizzaStandardSelezionata_1 = true;
 			if (Boolean.TRUE.equals(
 					Pizza.elems.stream().anyMatch(c -> c.toString(c).equals(pizzaInserita.get().toString(c))))) {
-				cover_r_pizzaStandardSelezionata_2 = true;
+				branch_r_pizzaStandardSelezionata_2 = true;
 				//{ //seq
 				pizzaCorrente.set(pizzaInserita.get());
 				pizzaCorrente.oldValue = pizzaCorrente.newValue;
@@ -437,7 +408,7 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 				fireUpdateSet();
 				//} //endseq
 			} else {
-				cover_r_pizzaStandardSelezionata_3 = true;
+				branch_r_pizzaStandardSelezionata_3 = true;
 				//{ //seq
 				outMess.set("Questa pizza non  presente in elenco!");
 				outMess.oldValue = outMess.newValue;
@@ -450,14 +421,13 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		}
 	}
 
-	boolean cover_r_altraPizzaSelezionata = false;
-	boolean cover_r_altraPizzaSelezionata_1 = false;
+	boolean branch_r_altraPizzaSelezionata_master = false;
+	boolean branch_r_altraPizzaSelezionata_1 = false;
 
-	@Override
 	void r_altraPizzaSelezionata() {
-		cover_r_altraPizzaSelezionata = true;
+		branch_r_altraPizzaSelezionata_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.ALTRAPIZZA_SELEZIONATA))) {
-			cover_r_altraPizzaSelezionata_1 = true;
+			branch_r_altraPizzaSelezionata_1 = true;
 			//{ //seq
 			r_aggiungiAlTotale();
 			fireUpdateSet();
@@ -468,11 +438,10 @@ class RegistroDiCassav4 extends RegistroDiCassav4Sig {
 		}
 	}
 
-	boolean cover_r_Main = false;
+	boolean branch_r_Main_master = false;
 
-	@Override
 	void r_Main() {
-		cover_r_Main = true;
+		branch_r_Main_master = true;
 		//{ //seq
 		r_attendiOrdinazioni();
 		fireUpdateSet();
