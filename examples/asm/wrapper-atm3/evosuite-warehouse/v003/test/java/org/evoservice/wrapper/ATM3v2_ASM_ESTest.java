@@ -5,6 +5,7 @@
 
 package org.evoservice.wrapper;
 
+import org.evoservice.wrapper.ATM3v2Sig.NumCard;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.evosuite.runtime.EvoAssertions.*;
@@ -23,6 +24,8 @@ public class ATM3v2_ASM_ESTest extends ATM3v2_ASM_ESTest_scaffolding {
       assertEquals(0, aTM3v2_ASM0.get_numOfBalanceChecks());
       assertEquals(1000, aTM3v2_ASM0.get_moneyLeft());
       assertNotNull(aTM3v2_ASM0);
+
+      //NumCard.elems = null;
       
       ATM3v2Sig.Service aTM3v2Sig_Service0 = ATM3v2Sig.Service.EXIT;
       aTM3v2_ASM0.set_selectedService(aTM3v2Sig_Service0);

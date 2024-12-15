@@ -1,4 +1,4 @@
-package org.evoservice.wrapper;// ATM3v2_ASM.java automatically generated from ASM2CODE
+package org.evoservice.wrapper;// ATM3v2_ATG.java automatically generated from ASM2CODE
 
 /**
 * This class allows you to simulate the behavior of an Abstract State Machine (ASM)

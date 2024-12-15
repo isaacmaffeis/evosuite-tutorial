@@ -11,22 +11,22 @@ import java.util.List;
 
 import org.apache.commons.collections4.Bag;
 
-class ATM3v2 {
+abstract class ATM3v2Sig {
 	/////////////////////////////////////////////////
 	/// DOMAIN CONTAINERS
 	/////////////////////////////////////////////////
 	/* Domain containers here */
 	//Variabile di tipo astratto
 	static class NumCard {
-		private static List<NumCard> elems = new ArrayList<>();
-		private static List<String> val = new ArrayList<>();
+		static List<NumCard> elems = new ArrayList<>();
+		static List<String> val = new ArrayList<>();
 
 		NumCard(String a) {
 			elems.add(this);
 			val.add(a);
 		}
 
-		static String toString(NumCard a) {
+		String toString(NumCard a) {
 			if (elems.contains(a)) {
 				return val.get(elems.lastIndexOf(a));
 			} else
@@ -53,7 +53,7 @@ class ATM3v2 {
 
 	//Variabile di tipo Concreto o Enumerativo
 	static class MoneySize {
-		private static List<Integer> elems = new ArrayList<>();
+		static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
 		static MoneySize valueOf(Integer val) {
@@ -157,6 +157,7 @@ class ATM3v2 {
 	Fun0Ctrl<State> atmState = new Fun0Ctrl<>();
 
 	//Funzione di tipo statico
+	abstract Integer pin(NumCard param0_pin);
 
 	//Funzione di tipo Controlled
 	FunNCtrl<NumCard, Boolean> accessible = new FunNCtrl<>();
@@ -181,6 +182,7 @@ class ATM3v2 {
 	Fun0<MoneySizeSelection> standardOrOther = new Fun0<>();
 
 	//Funzione di tipo derived
+	abstract Boolean allowed(NumCard param0_allowed, Integer param1_allowed);
 
 	//Funzione di tipo statico
 	static NumCard card1;
@@ -190,9 +192,37 @@ class ATM3v2 {
 	static NumCard card3;
 
 	//Funzione di tipo statico
+	abstract Integer minMoney();
 
 	//Funzione di tipo statico
+	abstract Integer maxPrelievo();
 
+	////////////////////////////////////////////////
+	/// RULE DEFINITION
+	/////////////////////////////////////////////////
+	/* Rule definition here */
+	abstract void r_subtractFrom(NumCard _c, Integer _m);
+
+	abstract void r_goOutOfService();
+
+	abstract void r_insertcard();
+
+	abstract void r_enterPin();
+
+	abstract void r_chooseService();
+
+	abstract void r_chooseAmount();
+
+	abstract void r_grantMoney(Integer _m);
+
+	abstract void r_processMoneyRequest(Integer _m);
+
+	abstract void r_prelievo();
+
+	abstract void r_Main();
+}
+
+class ATM3v2 extends ATM3v2Sig {
 	// Inizializzazione di funzioni e domini
 	ATM3v2() {
 		//Definizione iniziale dei domini statici
@@ -281,6 +311,7 @@ class ATM3v2 {
 
 	boolean cover_r_subtractFrom = false;
 
+	@Override
 	void r_subtractFrom(NumCard _c, Integer _m) {
 		cover_r_subtractFrom = true;
 		balance.set(_c, (balance.get(_c) - _m));
@@ -288,6 +319,7 @@ class ATM3v2 {
 
 	boolean cover_r_goOutOfService = false;
 
+	@Override
 	void r_goOutOfService() {
 		cover_r_goOutOfService = true;
 		atmState.set(State.OUTOFSERVICE);
@@ -297,6 +329,7 @@ class ATM3v2 {
 	boolean cover_r_insertcard_1 = false;
 	boolean cover_r_insertcard_2 = false;
 
+	@Override
 	void r_insertcard() {
 		cover_r_insertcard = true;
 		if (Boolean.TRUE.equals((atmState.get() == State.AWAITCARD))) {
@@ -317,6 +350,7 @@ class ATM3v2 {
 	boolean cover_r_enterPin_2 = false;
 	boolean cover_r_enterPin_3 = false;
 
+	@Override
 	void r_enterPin() {
 		cover_r_enterPin = true;
 		if (Boolean.TRUE.equals((atmState.get() == State.AWAITPIN))) {
@@ -342,6 +376,7 @@ class ATM3v2 {
 	boolean cover_r_chooseService_5 = false;
 	boolean cover_r_chooseService_6 = false;
 
+	@Override
 	void r_chooseService() {
 		cover_r_chooseService = true;
 		if (Boolean.TRUE.equals((atmState.get() == State.CHOOSE))) {
@@ -374,6 +409,7 @@ class ATM3v2 {
 	boolean cover_r_chooseAmount_2 = false;
 	boolean cover_r_chooseAmount_3 = false;
 
+	@Override
 	void r_chooseAmount() {
 		cover_r_chooseAmount = true;
 		if (Boolean.TRUE.equals((atmState.get() == State.CHOOSEAMOUNT))) {
@@ -393,6 +429,7 @@ class ATM3v2 {
 
 	boolean cover_r_grantMoney = false;
 
+	@Override
 	void r_grantMoney(Integer _m) {
 		cover_r_grantMoney = true;
 		//{ //par
@@ -406,6 +443,7 @@ class ATM3v2 {
 	boolean cover_r_processMoneyRequest = false;
 	boolean cover_r_processMoneyRequest_1 = false;
 
+	@Override
 	void r_processMoneyRequest(Integer _m) {
 		cover_r_processMoneyRequest = true;
 		if (Boolean.TRUE.equals(allowed(currCard.get(), _m))) {
@@ -422,6 +460,7 @@ class ATM3v2 {
 	boolean cover_r_prelievo_5 = false;
 	boolean cover_r_prelievo_6 = false;
 
+	@Override
 	void r_prelievo() {
 		cover_r_prelievo = true;
 		//{ //par
@@ -454,6 +493,7 @@ class ATM3v2 {
 	boolean cover_r_Main_3 = false;
 
 
+	@Override
 	void r_Main() {
 		cover_r_Main = true;
 		if (Boolean.TRUE.equals((moneyLeft.get() < minMoney()))) {

@@ -1,4 +1,4 @@
-package org.evoservice.wrapper;// ATM3v2_ASM.java automatically generated from ASM2CODE
+package org.evoservice.wrapper;// ATM3v2_ATG.java automatically generated from ASM2CODE
 
 /**
 * This class allows you to simulate the behavior of an Abstract State Machine (ASM)
@@ -8,15 +8,15 @@ package org.evoservice.wrapper;// ATM3v2_ASM.java automatically generated from A
 * It has been optimized to be used with evosuite in order to automatically generate test scenarios.
 * </p>
 */
-class ATM3v2_ASM {
+class ATM3v2_ATG {
 	private final ATM3v2 esecuzione;
 	private int stato;
 
 	/**
-	* Constructor of the {@code ATM3v2_ASM} class. Creates a private instance of the asm
+	* Constructor of the {@code ATM3v2_ATG} class. Creates a private instance of the asm
 	* {@link ATM3v2} and sets the initial state of the state machine to 1.
 	*/
-	public ATM3v2_ASM() {
+	public ATM3v2_ATG() {
 		this.esecuzione = new ATM3v2();
 		this.stato = 0;
 	}
@@ -26,13 +26,8 @@ class ATM3v2_ASM {
 	* and allows to perform a step of the asm by incrementing the state.
 	*/
 	public void step() {
-		System.out.println("<State " + stato + " (controlled)>");
-		printControlled();
-		this.esecuzione.updateASM();
-		System.out.println("</State " + stato + " (controlled)>");
-		System.out.println("\n<Stato attuale>");
-		printControlled();
 		cover_rules();
+		this.esecuzione.updateASM();
 		stato++;
 	}
 
@@ -183,8 +178,12 @@ class ATM3v2_ASM {
 	}
 
 	// Controlled getters
-	public ATM3v2.NumCard get_currCard() {
-		return this.esecuzione.currCard.get();
+//	public ATM3v2.NumCard get_currCard() {
+//		return this.esecuzione.currCard.get();
+//	}
+
+	public String get_currCard() {
+		return ATM3v2.NumCard.toString(this.esecuzione.currCard.get());
 	}
 
 	public ATM3v2.State get_atmState() {
@@ -231,26 +230,29 @@ class ATM3v2_ASM {
 
 
 	// ASM Methods
-	private void printControlled() {
-		System.out.print("NumCard" + " = {");
-		for (int i = 0; i < esecuzione.NumCard_elemsList.size(); i++)
-			if (i != esecuzione.NumCard_elemsList.size() - 1)
-				System.out.print(esecuzione.NumCard_elemsList.get(i) + ", ");
-			else
-				System.out.print(esecuzione.NumCard_elemsList.get(i));
-		System.out.println("}");
-		System.out.println("atmState = " + esecuzione.atmState.oldValue.name());
-		System.out.println("moneyLeft = " + esecuzione.moneyLeft.get());
-		System.out.println("numOfBalanceChecks = " + esecuzione.numOfBalanceChecks.get());
+
+	// Monitored setters
+
+//	public void set_insertedCard(String insertedCard) {
+//		this.esecuzione.insertedCard.set(
+//				this.esecuzione.NumCard_Class.get(
+//						this.esecuzione.NumCard_elemsList.indexOf(insertedCard)));
+//		System.out.println("Set insertedCard = " + insertedCard);
+//	}
+
+	public void set_insertedCard_card1() {
+			this.esecuzione.insertedCard.set(ATM3v2.card1);
+			System.out.println("Set insertedCard = " + "card1");
 	}
 
-// Monitored setters
+	public void set_insertedCard_card2() {
+			this.esecuzione.insertedCard.set(ATM3v2.card2);
+			System.out.println("Set insertedCard = " + "card2");
+	}
 
-	public void set_insertedCard(String insertedCard) {
-		this.esecuzione.insertedCard.set(
-				this.esecuzione.NumCard_Class.get(
-						this.esecuzione.NumCard_elemsList.indexOf(insertedCard)));
-		System.out.println("Set insertedCard = " + insertedCard);
+	public void set_insertedCard_card3() {
+			this.esecuzione.insertedCard.set(ATM3v2.card3);
+			System.out.println("Set insertedCard = " + "card3");
 	}
 
 	public void set_insertedPin(int insertedPin) {

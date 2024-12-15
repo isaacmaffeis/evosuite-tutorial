@@ -207,25 +207,25 @@ class RegistroDiCassav4_ATG {
 		System.out.println("Set pizzaInserita = " + pizzaInserita);
 	}
 
-	public void set_pizzaInserita(RegistroDiCassav4.Pizza pizzaInserita) {
-		this.execution.pizzaInserita.set(pizzaInserita);
-		System.out.println("Set pizzaInserita = " + pizzaInserita);
-	}
+//	public void set_pizzaInserita(RegistroDiCassav4.Pizza pizzaInserita) {
+//		this.execution.pizzaInserita.set(pizzaInserita);
+//		System.out.println("Set pizzaInserita = " + pizzaInserita);
+//	}
 
-	public void set_pizzaInserita_margherita() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.margherita);
-		System.out.println("Set pizzaInserita = " + "margherita");
-	}
-
-	public void set_pizzaInserita_capricciosa() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.capricciosa);
-		System.out.println("Set pizzaInserita = " + "capricciosa");
-	}
-
-	public void set_pizzaInserita_marinara() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.marinara);
-		System.out.println("Set pizzaInserita = " + "marinara");
-	}
+//	public void set_pizzaInserita_margherita() {
+//		this.execution.pizzaInserita.set(RegistroDiCassav4.margherita);
+//		System.out.println("Set pizzaInserita = " + "margherita");
+//	}
+//
+//	public void set_pizzaInserita_capricciosa() {
+//		this.execution.pizzaInserita.set(RegistroDiCassav4.capricciosa);
+//		System.out.println("Set pizzaInserita = " + "capricciosa");
+//	}
+//
+//	public void set_pizzaInserita_marinara() {
+//		this.execution.pizzaInserita.set(RegistroDiCassav4.marinara);
+//		System.out.println("Set pizzaInserita = " + "marinara");
+//	}
 
 	public void set_sceltaDiAggiuntaPizza(RegistroDiCassav4.AggiungiPizza sceltaDiAggiuntaPizza) {
 		this.execution.sceltaDiAggiuntaPizza.set(sceltaDiAggiuntaPizza);

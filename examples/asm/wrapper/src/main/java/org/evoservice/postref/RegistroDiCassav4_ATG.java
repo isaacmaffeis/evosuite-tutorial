@@ -1,4 +1,4 @@
-package org.evoservice.wrapper;// RegistroDiCassav4_ATG.java automatically generated from ASM2CODE
+package org.evoservice.postref;// RegistroDiCassav4_ATG.java automatically generated from ASM2CODE
 
 /**
 * This class is designed to simulate the behavior of an abstract state machine in an automated way.
@@ -27,12 +27,12 @@ class RegistroDiCassav4_ATG {
 	public void step() {
 		System.out.println("<State " + state + " (controlled)>");
 		printControlled();
-		// Cover the rules
-		coverRules();
 		this.execution.updateASM();
 		System.out.println("</State " + state + " (controlled)>");
 		System.out.println("\n<Current status>");
 		printControlled();
+		// Cover the rules
+		coverRules();
 		state++;
 	}
 
@@ -200,31 +200,10 @@ class RegistroDiCassav4_ATG {
 		System.out.println("Set servizioSelezionato = " + servizioSelezionato);
 	}
 
-
 	public void set_pizzaInserita(String pizzaInserita) {
 		this.execution.pizzaInserita
 				.set(this.execution.Pizza_Class.get(this.execution.Pizza_elemsList.indexOf(pizzaInserita)));
 		System.out.println("Set pizzaInserita = " + pizzaInserita);
-	}
-
-	public void set_pizzaInserita(RegistroDiCassav4.Pizza pizzaInserita) {
-		this.execution.pizzaInserita.set(pizzaInserita);
-		System.out.println("Set pizzaInserita = " + pizzaInserita);
-	}
-
-	public void set_pizzaInserita_margherita() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.margherita);
-		System.out.println("Set pizzaInserita = " + "margherita");
-	}
-
-	public void set_pizzaInserita_capricciosa() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.capricciosa);
-		System.out.println("Set pizzaInserita = " + "capricciosa");
-	}
-
-	public void set_pizzaInserita_marinara() {
-		this.execution.pizzaInserita.set(RegistroDiCassav4.marinara);
-		System.out.println("Set pizzaInserita = " + "marinara");
 	}
 
 	public void set_sceltaDiAggiuntaPizza(RegistroDiCassav4.AggiungiPizza sceltaDiAggiuntaPizza) {
