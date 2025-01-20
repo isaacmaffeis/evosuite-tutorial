@@ -156,7 +156,7 @@ class Pillbox_1 {
 		logMess.oldValue = logMess.newValue = OutMessages.NONE;
 		redLed.oldValue = redLed.newValue = LedLights.OFF;
 		Time_elem.value = 0;
-		drawerTimer.oldValue = drawerTimer.newValue = Time_elem;
+		drawerTimer.oldValue = drawerTimer.newValue = Time.valueOf(0);
 		Time_elem.value = 1;
 		time_consumption.oldValue = time_consumption.newValue = Time_elem;
 		Time_elem.value = 0;

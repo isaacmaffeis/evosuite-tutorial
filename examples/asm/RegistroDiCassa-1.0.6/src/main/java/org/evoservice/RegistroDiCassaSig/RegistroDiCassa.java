@@ -1,4 +1,4 @@
-package org.evoservice.RegistroDiCassa;
+package org.evoservice.RegistroDiCassaSig;
 // RegistroDiCassa.java automatically generated from ASM2CODE
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-class RegistroDiCassav4 {
+abstract class RegistroDiCassaSig {
 	/////////////////////////////////////////////////
 	/// DOMAIN CONTAINERS
 	/////////////////////////////////////////////////
 	/* Domain containers here */
 	//Variabile di tipo astratto
 	static class Pizza {
-		private static List<Pizza> elems = new ArrayList<>();
-		private static List<String> val = new ArrayList<>();
+		static List<Pizza> elems = new ArrayList<>();
+		static List<String> val = new ArrayList<>();
 
 		Pizza(String a) {
 			elems.add(this);
@@ -38,12 +38,12 @@ class RegistroDiCassav4 {
 		}
 	}
 
-	List<String> Pizza_elemsList = new ArrayList<>();
+	private List<String> Pizza_elemsList = new ArrayList<>();
 	List<Pizza> Pizza_Class = new ArrayList<>();
 
 	//Variabile di tipo Concreto o Enumerativo
 	static class PrezzoDomain {
-		private static List<Integer> elems = new ArrayList<>();
+		static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
 		static PrezzoDomain valueOf(Integer val) {
@@ -78,7 +78,7 @@ class RegistroDiCassav4 {
 
 	//Variabile di tipo Concreto o Enumerativo
 	static class QuantitaDomain {
-		private static List<Integer> elems = new ArrayList<>();
+		static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
 		static QuantitaDomain valueOf(Integer val) {
@@ -201,7 +201,10 @@ class RegistroDiCassav4 {
 	Fun0Ctrl<Stati> statoCassa = new Fun0Ctrl<>();
 	//Funzione di tipo Controlled
 	Fun0Ctrl<String> outMess = new Fun0Ctrl<>();
+
 	//Funzione di tipo statico
+	abstract Integer getPrezzo(Pizza param0_getPrezzo);
+
 	//Funzione di tipo monitored
 	Fun0<Servizio> servizioSelezionato = new Fun0<>();
 	//Funzione di tipo monitored
@@ -217,16 +220,38 @@ class RegistroDiCassav4 {
 	Fun0<PrezzoDomain> insertPrezzo = new Fun0<>();
 	PrezzoDomain insertPrezzo_supporto = new PrezzoDomain();
 	//Funzione di tipo statico
-	private static Pizza margherita;
+	static Pizza margherita;
 	//Funzione di tipo statico
-	private static Pizza marinara;
+	static Pizza marinara;
 	//Funzione di tipo statico
-	private static Pizza capricciosa;
+	static Pizza capricciosa;
 	//Funzione di tipo Controlled
 	Fun0Ctrl<Integer> totale = new Fun0Ctrl<>();
 
+	////////////////////////////////////////////////
+	/// RULE DEFINITION
+	/////////////////////////////////////////////////
+	/* Rule definition here */
+	abstract void r_aggiungiPizzaStandardAlTotale();
+
+	abstract void r_aggiungiAlTotale();
+
+	abstract void r_attendiOrdinazioni();
+
+	abstract void r_scegliSeAggiungerePizza();
+
+	abstract void r_scegliTipoDiPizza();
+
+	abstract void r_pizzaStandardSelezionata();
+
+	abstract void r_altraPizzaSelezionata();
+
+	abstract void r_Main();
+}
+
+class RegistroDiCassa extends RegistroDiCassaSig {
 	// Inizializzazione di funzioni e domini
-	RegistroDiCassav4() {
+	RegistroDiCassa() {
 		//Definizione iniziale dei domini statici
 		PrezzoDomain.elems = Collections
 				.unmodifiableList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20));
@@ -272,6 +297,7 @@ class RegistroDiCassav4 {
 	// Conversione delle regole ASM in metodi java
 	boolean branch_r_aggiungiPizzaStandardAlTotale_master = false;
 
+	@Override
 	void r_aggiungiPizzaStandardAlTotale() {
 		branch_r_aggiungiPizzaStandardAlTotale_master = true;
 		//{ //seq
@@ -286,6 +312,7 @@ class RegistroDiCassav4 {
 
 	boolean branch_r_aggiungiAlTotale_master = false;
 
+	@Override
 	void r_aggiungiAlTotale() {
 		branch_r_aggiungiAlTotale_master = true;
 		//{ //seq
@@ -303,6 +330,8 @@ class RegistroDiCassav4 {
 	boolean branch_r_attendiOrdinazioni_2 = false;
 	boolean branch_r_attendiOrdinazioni_3 = false;
 
+
+	@Override
 	void r_attendiOrdinazioni() {
 		branch_r_attendiOrdinazioni_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.ATTENDI_ORDINAZIONI))) {
@@ -332,6 +361,7 @@ class RegistroDiCassav4 {
 	boolean branch_r_scegliSeAggiungerePizza_2 = false;
 	boolean branch_r_scegliSeAggiungerePizza_3 = false;
 
+	@Override
 	void r_scegliSeAggiungerePizza() {
 		branch_r_scegliSeAggiungerePizza_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.SCEGLI_SE_AGGIUNGERE_PIZZA))) {
@@ -364,6 +394,7 @@ class RegistroDiCassav4 {
 	boolean branch_r_scegliTipoDiPizza_2 = false;
 	boolean branch_r_scegliTipoDiPizza_3 = false;
 
+	@Override
 	void r_scegliTipoDiPizza() {
 		branch_r_scegliTipoDiPizza_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.SCEGLI_TIPO_DI_PIZZA))) {
@@ -392,6 +423,7 @@ class RegistroDiCassav4 {
 	boolean branch_r_pizzaStandardSelezionata_2 = false;
 	boolean branch_r_pizzaStandardSelezionata_3 = false;
 
+	@Override
 	void r_pizzaStandardSelezionata() {
 		branch_r_pizzaStandardSelezionata_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.PIZZASTANDARD_SELEZIONATA))) {
@@ -426,6 +458,7 @@ class RegistroDiCassav4 {
 	boolean branch_r_altraPizzaSelezionata_master = false;
 	boolean branch_r_altraPizzaSelezionata_1 = false;
 
+	@Override
 	void r_altraPizzaSelezionata() {
 		branch_r_altraPizzaSelezionata_master = true;
 		if (Boolean.TRUE.equals((statoCassa.get() == Stati.ALTRAPIZZA_SELEZIONATA))) {
@@ -442,6 +475,7 @@ class RegistroDiCassav4 {
 
 	boolean branch_r_Main_master = false;
 
+	@Override
 	void r_Main() {
 		branch_r_Main_master = true;
 		//{ //seq
@@ -475,5 +509,9 @@ class RegistroDiCassav4 {
 		r_Main();
 		fireUpdateSet();
 		initControlledWithMonitored();
+	}
+
+	public static void main(String[] args) {
+		// TODO: auto-generated main method by Asmeta2Java 
 	}
 }
