@@ -218,6 +218,9 @@ class ConcreteD {
 		C get(D d) {
 			return oldValues.get(d);
 		}
+
+        void init(Map<D, C> initMap) {
+            oldValues = newValues = initMap;
 	}
 
 	//Metodi di supporto per l'implementazione delle funzioni non controlled

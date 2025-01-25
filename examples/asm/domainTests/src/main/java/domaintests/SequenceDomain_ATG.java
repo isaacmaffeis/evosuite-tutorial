@@ -19,7 +19,6 @@ class SequenceDomain_ATG {
 	*/
 	public SequenceDomain_ATG() {
 		this.execution = new SequenceDomain();
-		this.execution.fireUpdateSet();
 		this.state = 0;
 	}
 
@@ -30,6 +29,8 @@ class SequenceDomain_ATG {
 		System.out.println("</State " + state + " >");
 		// Cover the rules
 		coverRules();
+		// Cover the outputs
+		coverOutputs();
 		state++;
 	}
 
@@ -48,6 +49,18 @@ class SequenceDomain_ATG {
 		if (this.execution.branch_r_Main_master) {
 			System.out.println("branch_r_Main_master covered");
 		}
+	}
+
+	/* Cover the Outputs */
+	// Monitored getters
+	// Cover functions
+	/**
+	* Invokes all output coverage functions.
+	* <p>
+	* To achieve complete output coverage, only the functions that cover enum codomains need to be invoked.
+	* </p>
+	*/
+	private void coverOutputs() {
 	}
 
 	/* ASM Methods */
@@ -105,8 +118,7 @@ class SequenceDomain_ATG {
 		if (list == null || list.isEmpty()) {
 			return "[]";
 		}
-		return "[" + list.stream().map(e -> SequenceDomain.AbstractDomain.toString(e))
-				.collect(java.util.stream.Collectors.joining(", ")) + "]";
+		return "[" + list.stream().map(Object::toString).collect(java.util.stream.Collectors.joining(", ")) + "]";
 	}
 
 	// Monitored setters

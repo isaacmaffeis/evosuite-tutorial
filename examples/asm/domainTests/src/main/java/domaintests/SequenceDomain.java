@@ -28,9 +28,10 @@ class SequenceDomain {
 			val.add(a);
 		}
 
-		static String toString(AbstractDomain a) {
-			if (elems.contains(a)) {
-				return val.get(elems.lastIndexOf(a));
+		@Override
+		public String toString() {
+			if (elems.contains(this)) {
+				return val.get(elems.lastIndexOf(this));
 			} else
 				return null;
 		}
@@ -53,53 +54,177 @@ class SequenceDomain {
 
 	List<EnumDomain> EnumDomain_elemsList = new ArrayList<>();
 
-	//Metodi di supporto per l'implementazione delle funzioni controlled
+	//Support methods for implementing controlled functions
+	/**
+	* A generic controlled function class with null domain and codomain D.
+	* 
+	* @param <D> the type of the value to be managed, represents the Codomain of the function.
+	*/
 	class Fun0Ctrl<D> {
-		D oldValue;
-		D newValue;
+		private D currValue; // the current value
+		private D newValue; // the new value to be assigned
 
+		/**
+		* Sets the new value for this function.
+		* 
+		* <p>The provided value is stored as {@code newValue}, representing the value 
+		* that will replace the current value {@code oldValue} in the next step.</p>
+		*
+		* @param d the new value to be prepared for assignment
+		*/
 		void set(D d) {
 			newValue = d;
 		}
 
+		/**
+		* Retrieves the function current value.
+		* 
+		* <p>The {@code currValue} represents the current state of the function before 
+		* any pending updates to {@code newValue} are applied.</p>
+		* 
+		* @return the current value
+		*/
 		D get() {
-			return oldValue;
+			return currValue;
+		}
+
+		/**
+		* Initializes both the current and new values with the provided value.
+		* 
+		* <p>This method is meant to be used to set the initial state of the function</p>
+		* 
+		* @param d the value to initialize both the current and new states
+		*/
+		void init(D d) {
+			currValue = newValue = d;
+		}
+
+		/**
+		* Updates the current value with the new value.
+		* 
+		* <p>This method copies the {@code newValue} into {@code currValue}, 
+		* effectively promoting the new value to the current value.</p>
+		*/
+		void update() {
+			currValue = newValue;
 		}
 	}
 
+	/**
+	* A generic class for controlled functions with domain (not null) and codomain D -> C
+	*
+	*
+	* @param <D> the type of the key in the mappings, represents the Domain of the function.
+	* @param <C> the type of the value in the mappings, represents the Codomain of the function.
+	*/
 	static class FunNCtrl<D, C> {
-		Map<D, C> oldValues = new HashMap<>();
-		Map<D, C> newValues = new HashMap<>();
+		private Map<D, C> currValues = new HashMap<>(); // The current value map
+		private Map<D, C> newValues = new HashMap<>(); // The new value map to be assigned
 
+		/**
+		* Sets a new value for a given key in the new values map.
+		* 
+		* <p>The provided key-value pair is stored in the {@code newValues} map, 
+		* representing the new state that will replace the current state in the next step.</p>
+		* 
+		* @param d the key for the new value
+		* @param c the new value to be associated with the key
+		*/
 		void set(D d, C c) {
 			newValues.put(d, c);
 		}
 
+		/**
+		* Retrieves the current value associated with a given key.
+		* 
+		* <p>The {@code currValues} map holds the current state of the key-value mappings.
+		* This method returns the value associated with the specified key in the current state.</p>
+		* 
+		* @param d the key whose associated value is to be returned
+		* @return the current value associated with the given key, or {@code null} if the key is not found
+		*/
 		C get(D d) {
-			return oldValues.get(d);
+			return currValues.get(d);
+		}
+
+		/**
+		* Initializes both the current and new maps with a single key-value pair.
+		* 
+		* <p>This method is meant to be used to set the initial state of the function.</p>
+		* 
+		* @param d the key to be added to both maps
+		* @param c the value to be associated with the key in both maps
+		*/
+		void init(D d, C c) {
+			currValues.put(d, c);
+			newValues.put(d, c);
+		}
+
+		/**
+		* Updates the current value with the new value.
+		* 
+		* <p>This method copies the {@code newValues} into {@code currValues}, 
+		* effectively promoting the new value to the current value.</p>
+		*/
+		void update() {
+			currValues = newValues;
 		}
 	}
 
-	//Metodi di supporto per l'implementazione delle funzioni non controlled
+	//Support methods for the implementation of non-controlled functions
+	/**
+	* A generic function class with null domain and codomain D.
+	* 
+	* @param <D> the type of the value to be managed, represents the Codomain of the function.
+	*/
 	class Fun0<D> {
-		D value;
+		D value; // the current value
 
+		/**
+		* Sets the new value for this function.
+		*
+		* @param d the new value to be assigned
+		*/
 		void set(D d) {
 			value = d;
 		}
 
+		/**
+		* Retrieves the function current value.
+		* 
+		* @return the current value
+		*/
 		D get() {
 			return value;
 		}
 	}
 
+	/**
+	* A generic class for functions with domain (not null) and codomain D -> C
+	*
+	*
+	* @param <D> the type of the key in the mappings, represents the Domain of the function.
+	* @param <C> the type of the value in the mappings, represents the Codomain of the function.
+	*/
 	class FunN<D, C> {
 		Map<D, C> values = new HashMap<>();
 
+		/**
+		* Sets a new value for a given key in the new values map.
+		* 
+		* @param d the key for the new value
+		* @param c the new value to be associated with the key
+		*/
 		void set(D d, C c) {
 			values.put(d, c);
 		}
 
+		/**
+		* Retrieves the current value associated with a given key.
+		* 
+		* @param d the key whose associated value is to be returned
+		* @return the current value associated with the given key, or {@code null} if the key is not found
+		*/
 		C get(D d) {
 			return values.get(d);
 		}
@@ -108,46 +233,46 @@ class SequenceDomain {
 	/////////////////////////////////////////////////
 	/// FUNCTIONS
 	/////////////////////////////////////////////////
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<Integer> seqIntegerMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<Integer>> seqIntegerMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<Boolean> seqBooleanMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<Boolean>> seqBooleanMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<String> seqStringMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<String>> seqStringMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<Character> seqCharMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<Character>> seqCharMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<Double> seqRealMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<Double>> seqRealMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<EnumDomain> seqEnumMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<EnumDomain>> seqEnumMonitoredFunction = new Fun0<>();
-	//Funzione di tipo monitored
+	//Monitored Function
 	List<AbstractDomain> seqAbstractMonitoredFunction_elem = new ArrayList<>();
 	Fun0<List<AbstractDomain>> seqAbstractMonitoredFunction = new Fun0<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<Integer> seqIntegerControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<Integer>> seqIntegerControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<Boolean> seqBooleanControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<Boolean>> seqBooleanControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<String> seqStringControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<String>> seqStringControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<Character> seqCharControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<Character>> seqCharControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<Double> seqRealControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<Double>> seqRealControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<EnumDomain> seqEnumControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<EnumDomain>> seqEnumControlledFunction = new Fun0Ctrl<>();
-	//Funzione di tipo Controlled
+	//Controlled Function
 	List<AbstractDomain> seqAbstractControlledFunction_elem = new ArrayList<>();
 	Fun0Ctrl<List<AbstractDomain>> seqAbstractControlledFunction = new Fun0Ctrl<>();
 	//Funzione di tipo statico
@@ -169,13 +294,13 @@ class SequenceDomain {
 		AbstractDomain_elemsList.add("value2");
 		AbstractDomain_Class.add(value2);
 		//Inizializzazione delle funzioni
-		seqIntegerControlledFunction.set(new ArrayList<>(Arrays.asList(2, 2)));
-		seqEnumControlledFunction.set(new ArrayList<>(Arrays.asList(EnumDomain.STATE1, EnumDomain.STATE2)));
-		seqAbstractControlledFunction.set(new ArrayList<>(Arrays.asList(value1, value2)));
-		seqBooleanControlledFunction.set(new ArrayList<>(Arrays.asList(true, false)));
-		seqStringControlledFunction.set(new ArrayList<>(Arrays.asList("Hello", " ", "world", "!")));
-		seqCharControlledFunction.set(new ArrayList<>(Arrays.asList('a', 'b', 'c')));
-		seqRealControlledFunction.set(new ArrayList<>(Arrays.asList(5.5, 2.2, 7.6)));
+		seqIntegerControlledFunction.init(new ArrayList<>(Arrays.asList(2, 2)));
+		seqEnumControlledFunction.init(new ArrayList<>(Arrays.asList(EnumDomain.STATE1, EnumDomain.STATE2)));
+		seqAbstractControlledFunction.init(new ArrayList<>(Arrays.asList(value1, value2)));
+		seqBooleanControlledFunction.init(new ArrayList<>(Arrays.asList(true, false)));
+		seqStringControlledFunction.init(new ArrayList<>(Arrays.asList("Hello", " ", "world", "!")));
+		seqCharControlledFunction.init(new ArrayList<>(Arrays.asList('a', 'b', 'c')));
+		seqRealControlledFunction.init(new ArrayList<>(Arrays.asList(5.5, 2.2, 7.6)));
 	}
 
 	// Definizione delle funzioni statiche
@@ -194,13 +319,13 @@ class SequenceDomain {
 
 	// applicazione dell'aggiornamento del set
 	void fireUpdateSet() {
-		seqIntegerControlledFunction.oldValue = seqIntegerControlledFunction.newValue;
-		seqBooleanControlledFunction.oldValue = seqBooleanControlledFunction.newValue;
-		seqStringControlledFunction.oldValue = seqStringControlledFunction.newValue;
-		seqCharControlledFunction.oldValue = seqCharControlledFunction.newValue;
-		seqRealControlledFunction.oldValue = seqRealControlledFunction.newValue;
-		seqEnumControlledFunction.oldValue = seqEnumControlledFunction.newValue;
-		seqAbstractControlledFunction.oldValue = seqAbstractControlledFunction.newValue;
+		seqIntegerControlledFunction.update();
+		seqBooleanControlledFunction.update();
+		seqStringControlledFunction.update();
+		seqCharControlledFunction.update();
+		seqRealControlledFunction.update();
+		seqEnumControlledFunction.update();
+		seqAbstractControlledFunction.update();
 	}
 
 	//Metodo per l'aggiornamento dell'asm
