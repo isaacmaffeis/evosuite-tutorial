@@ -29,8 +29,6 @@ class BasicTD_ATG {
 		System.out.println("</State " + state + " >");
 		// Cover the rules
 		coverRules();
-		// Cover the outputs
-		coverOutputs();
 		state++;
 	}
 
@@ -51,18 +49,6 @@ class BasicTD_ATG {
 		}
 	}
 
-	/* Cover the Outputs */
-	// Monitored getters
-	// Cover functions
-	/**
-	* Invokes all output coverage functions.
-	* <p>
-	* To achieve complete output coverage, only the functions related to the enum need to be invoked.
-	* </p>
-	*/
-	private void coverOutputs() {
-	}
-
 	/* ASM Methods */
 	// Controlled getters
 	public Double get_realControlledFunction() {
@@ -71,6 +57,10 @@ class BasicTD_ATG {
 
 	public Integer get_integerControlledFunction() {
 		return this.execution.integerControlledFunction.get();
+	}
+
+	public Integer get_natural_naturalControlledFunction() {
+		return this.execution.naturalControlledFunction.get();
 	}
 
 	public String get_stringControlledFunction() {
@@ -94,6 +84,11 @@ class BasicTD_ATG {
 	public void set_integerMonitoredFunction(int integerMonitoredFunction) {
 		this.execution.integerMonitoredFunction.set(integerMonitoredFunction);
 		System.out.println("Set integerMonitoredFunction = " + integerMonitoredFunction);
+	}
+
+	public void set_natural_naturalMonitoredFunction(int naturalMonitoredFunction) {
+		this.execution.naturalMonitoredFunction.set(naturalMonitoredFunction);
+		System.out.println("Set naturalMonitoredFunction = " + naturalMonitoredFunction + "n");
 	}
 
 	public void set_stringMonitoredFunction(String stringMonitoredFunction) {

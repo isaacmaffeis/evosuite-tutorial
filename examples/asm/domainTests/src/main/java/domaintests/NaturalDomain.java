@@ -1,5 +1,5 @@
-package org.evoservice.trafficLight;
-// TrafficLightv2.java automatically generated from ASM2CODE
+package domaintests;
+// NaturalDomain.java automatically generated from ASM2CODE
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,41 +13,70 @@ import org.apache.commons.collections4.Bag;
 
 import java.util.function.Function;
 
-class TrafficLightv2 {
+class NaturalDomain {
 	/////////////////////////////////////////////////
 	/// DOMAIN CONTAINERS
 	/////////////////////////////////////////////////
 	/* Domain containers here */
-	//Variabile di tipo Concreto o Enumerativo
-	enum States {
-		RED, GREEN, YELLOW, PENDING
+	//Variabile di tipo astratto
+	static class AbstractDomain {
+		private static List<AbstractDomain> elems = new ArrayList<>();
+		private static List<String> val = new ArrayList<>();
+
+		AbstractDomain(String a) {
+			elems.add(this);
+			val.add(a);
+		}
+
+		@Override
+		public String toString() {
+			if (elems.contains(this)) {
+				return val.get(elems.lastIndexOf(this));
+			} else
+				return null;
+		}
+
+		static AbstractDomain get(String a) {
+			if (val.contains(a)) {
+				return elems.get(val.lastIndexOf(a));
+			} else
+				return null;
+		}
 	}
 
-	List<States> States_elemsList = new ArrayList<>();
+	List<String> AbstractDomain_elemsList = new ArrayList<>();
+	List<AbstractDomain> AbstractDomain_Class = new ArrayList<>();
 
 	//Variabile di tipo Concreto o Enumerativo
-	static class TimerDomain {
+	enum EnumDomain {
+		STATE1, STATE2, STATE3
+	}
+
+	List<EnumDomain> EnumDomain_elemsList = new ArrayList<>();
+
+	//Variabile di tipo Concreto o Enumerativo
+	static class ConcreteDomain {
 		private static List<Integer> elems = new ArrayList<>();
 		Integer value;
 
-		static TimerDomain valueOf(Integer val) {
+		static ConcreteDomain valueOf(Integer val) {
 			if (elems.contains(val)) {
-				TimerDomain n = new TimerDomain();
+				ConcreteDomain n = new ConcreteDomain();
 				n.value = elems.get(elems.indexOf(val));
 				return n;
 			}
 			return null;
 		}
 
-		static TimerDomain valueOf(TimerDomain val) {
+		static ConcreteDomain valueOf(ConcreteDomain val) {
 			return val;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (!(obj instanceof TimerDomain))
+			if (!(obj instanceof ConcreteDomain))
 				return false;
-			return value.equals(((TimerDomain) obj).value);
+			return value.equals(((ConcreteDomain) obj).value);
 		}
 
 		@Override
@@ -57,8 +86,8 @@ class TrafficLightv2 {
 	}
 
 	// TODO do not use this object to init - remove this line in the translation
-	TimerDomain TimerDomain_elem = new TimerDomain();
-	List<Integer> TimerDomain_elems = new ArrayList<>();
+	ConcreteDomain ConcreteDomain_elem = new ConcreteDomain();
+	List<Integer> ConcreteDomain_elems = new ArrayList<>();
 
 	//Support methods for implementing controlled functions
 	/**
@@ -239,177 +268,52 @@ class TrafficLightv2 {
 	/////////////////////////////////////////////////
 	/// FUNCTIONS
 	/////////////////////////////////////////////////
-	//Controlled Function
-	Fun0Ctrl<TimerDomain> count = new Fun0Ctrl<>();
-	//Controlled Function
-	Fun0Ctrl<States> status = new Fun0Ctrl<>();
 	//Monitored Function
-	Fun0<Boolean> pedestrian = new Fun0<>();
+	Fun0<Integer> naturalMonitoredFunction = new Fun0<>();
+	//Monitored Function
+	FunN<EnumDomain, Integer> enumtonaturalMonitoredFunction = new FunN<>();
+	//Monitored Function
+	FunN<AbstractDomain, Integer> abstracttonaturalMonitoredFunction = new FunN<>();
+	//Monitored Function
+	FunN<ConcreteDomain, Integer> concretetonaturalMonitoredFunction = new FunN<>();
+	//Controlled Function
+	Fun0Ctrl<Integer> naturalControlledFunction = new Fun0Ctrl<>();
+	//Controlled Function
+	FunNCtrl<EnumDomain, Integer> enumtonaturalControlledFunction = new FunNCtrl<>();
+	//Controlled Function
+	FunNCtrl<AbstractDomain, Integer> abstracttonaturalControlledFunction = new FunNCtrl<>();
+	//Controlled Function
+	FunNCtrl<ConcreteDomain, Integer> concretetonaturalControlledFunction = new FunNCtrl<>();
+	//Funzione di tipo statico
+	private static AbstractDomain value1;
+	//Funzione di tipo statico
+	private static AbstractDomain value2;
 
-	//Funzione di tipo statico
-	//Funzione di tipo statico
-	//Funzione di tipo statico
 	// Inizializzazione di funzioni e domini
-	TrafficLightv2() {
+	NaturalDomain() {
 		//Definizione iniziale dei domini statici
-		TimerDomain.elems = Collections.unmodifiableList(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
-		TimerDomain_elems = Collections.unmodifiableList(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
-		States_elemsList = Collections
-				.unmodifiableList(Arrays.asList(States.RED, States.GREEN, States.YELLOW, States.PENDING));
+		ConcreteDomain.elems = Collections.unmodifiableList(Arrays.asList(1, 2, 3, 4, 5));
+		ConcreteDomain_elems = Collections.unmodifiableList(Arrays.asList(1, 2, 3, 4, 5));
+		EnumDomain_elemsList = Collections
+				.unmodifiableList(Arrays.asList(EnumDomain.STATE1, EnumDomain.STATE2, EnumDomain.STATE3));
 		//Definizione iniziale dei domini dinamici
 		//Definizione iniziale dei domini astratti con funzini statiche
+		value1 = new AbstractDomain("value1");
+		AbstractDomain_elemsList.add("value1");
+		AbstractDomain_Class.add(value1);
+		value2 = new AbstractDomain("value2");
+		AbstractDomain_elemsList.add("value2");
+		AbstractDomain_Class.add(value2);
 		//Inizializzazione delle funzioni
-		status.init(States.RED);
-		TimerDomain TimerDomain_elem = new TimerDomain();
-		TimerDomain_elem.value = 0;
-		count.init(TimerDomain_elem);
 	}
 
 	// Definizione delle funzioni statiche
-	Boolean timeOut() {
-		return (count.get().value >= 6);
-	}
-
-	Boolean yellow_timeOut() {
-		return (count.get().value >= 1);
-	}
-
-	Boolean interupt() {
-		return (pedestrian.get() == true) && (count.get().value < 6);
-	}
-
 	// Conversione delle regole ASM in metodi java
-	boolean branch_r_red_master = false;
-	boolean branch_r_red_1 = false;
-	boolean branch_r_red_2 = false;
-
-	void r_red() {
-		branch_r_red_master = true;
-		if (Boolean.TRUE.equals(timeOut())) {
-			branch_r_red_1 = true;
-			//{ //par
-			status.set(States.GREEN);
-			TimerDomain TimerDomain1751403001_s = new TimerDomain();
-			TimerDomain1751403001_s.value = (//count.get().value
-			0);
-			count.set(TimerDomain1751403001_s);
-			//} //endpar
-		} else {
-			branch_r_red_2 = true;
-			TimerDomain TimerDomain1543518287_s = new TimerDomain();
-			TimerDomain1543518287_s.value = (//count.get().value
-			(count.get().value + 1));
-			count.set(TimerDomain1543518287_s);
-		}
-	}
-
-	boolean branch_r_green_master = false;
-	boolean branch_r_green_1 = false;
-	boolean branch_r_green_2 = false;
-	boolean branch_r_green_3 = false;
-	boolean branch_r_green_4 = false;
-
-	void r_green() {
-		branch_r_green_master = true;
-		if (Boolean.TRUE.equals(interupt())) {
-			branch_r_green_1 = true;
-			//{ //par
-			status.set(States.PENDING);
-			TimerDomain TimerDomain1765702_s = new TimerDomain();
-			TimerDomain1765702_s.value = (//count.get().value
-			0);
-			count.set(TimerDomain1765702_s);
-			//} //endpar
-		} else {
-			branch_r_green_2 = true;
-			if (Boolean.TRUE.equals(timeOut())) {
-				branch_r_green_3 = true;
-				//{ //par
-				status.set(States.YELLOW);
-				TimerDomain TimerDomain1618984457_s = new TimerDomain();
-				TimerDomain1618984457_s.value = (//count.get().value
-				0);
-				count.set(TimerDomain1618984457_s);
-				//} //endpar
-			} else {
-				branch_r_green_4 = true;
-				TimerDomain TimerDomain1979080261_s = new TimerDomain();
-				TimerDomain1979080261_s.value = (//count.get().value
-				(count.get().value + 1));
-				count.set(TimerDomain1979080261_s);
-			}
-		}
-	}
-
-	boolean branch_r_yellow_master = false;
-	boolean branch_r_yellow_1 = false;
-	boolean branch_r_yellow_2 = false;
-
-	void r_yellow() {
-		branch_r_yellow_master = true;
-		if (Boolean.TRUE.equals(yellow_timeOut())) {
-			branch_r_yellow_1 = true;
-			//{ //par
-			status.set(States.RED);
-			TimerDomain TimerDomain376725601_s = new TimerDomain();
-			TimerDomain376725601_s.value = (//count.get().value
-			0);
-			count.set(TimerDomain376725601_s);
-			//} //endpar
-		} else {
-			branch_r_yellow_2 = true;
-			TimerDomain TimerDomain1552870927_s = new TimerDomain();
-			TimerDomain1552870927_s.value = (//count.get().value
-			(count.get().value + 1));
-			count.set(TimerDomain1552870927_s);
-		}
-	}
-
-	boolean branch_r_pending_master = false;
-	boolean branch_r_pending_1 = false;
-	boolean branch_r_pending_2 = false;
-
-	void r_pending() {
-		branch_r_pending_master = true;
-		if (Boolean.TRUE.equals(timeOut())) {
-			branch_r_pending_1 = true;
-			//{ //par
-			status.set(States.RED);
-			TimerDomain TimerDomain379124840_s = new TimerDomain();
-			TimerDomain379124840_s.value = (//count.get().value
-			0);
-			count.set(TimerDomain379124840_s);
-			//} //endpar
-		} else {
-			branch_r_pending_2 = true;
-			TimerDomain TimerDomain1475192960_s = new TimerDomain();
-			TimerDomain1475192960_s.value = (//count.get().value
-			(count.get().value + 1));
-			count.set(TimerDomain1475192960_s);
-		}
-	}
-
 	boolean branch_r_Main_master = false;
-	boolean branch_r_Main_1 = false;
-	boolean branch_r_Main_2 = false;
-	boolean branch_r_Main_3 = false;
-	boolean branch_r_Main_4 = false;
 
 	void r_Main() {
 		branch_r_Main_master = true;
-		if (status.get() == States.RED) {
-			branch_r_Main_1 = true;
-			r_red();
-		} else if (status.get() == States.GREEN) {
-			branch_r_Main_2 = true;
-			r_green();
-		} else if (status.get() == States.YELLOW) {
-			branch_r_Main_3 = true;
-			r_yellow();
-		} else if (status.get() == States.PENDING) {
-			branch_r_Main_4 = true;
-			r_pending();
-		}
+		// Empty rule 
 	}
 
 	// inizializazzione delle funzioni controllate che contengono metodi monitorati nei temini iniziali
@@ -419,8 +323,10 @@ class TrafficLightv2 {
 
 	// applicazione dell'aggiornamento del set
 	void fireUpdateSet() {
-		count.update();
-		status.update();
+		naturalControlledFunction.update();
+		enumtonaturalControlledFunction.update();
+		abstracttonaturalControlledFunction.update();
+		concretetonaturalControlledFunction.update();
 	}
 
 	//Metodo per l'aggiornamento dell'asm
